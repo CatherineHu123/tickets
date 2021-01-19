@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dhu.tickets.mapper.ExhibitionVoteMapper" >
+  <resultMap id="BaseResultMap" type="com.dhu.tickets.entity.ExhibitionVote" >
+    <id column="exhibition_vote_id" property="exhibitionVoteId" jdbcType="INTEGER" />
+    <result column="exhibition_name" property="exhibitionName" jdbcType="VARCHAR" />
+    <result column="exhibition_text" property="exhibitionText" jdbcType="VARCHAR" />
+    <result column="exhibition_img" property="exhibitionImg" jdbcType="VARCHAR" />
+    <result column="vote_number" property="voteNumber" jdbcType="INTEGER" />
+    <result column="if_delete" property="ifDelete" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    exhibition_vote_id, exhibition_name, exhibition_text, exhibition_img, vote_number, 
+    if_delete, create_date, update_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dhu.tickets.entity.ExhibitionVoteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from exhibition_vote
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from exhibition_vote
+    where exhibition_vote_id = #{exhibitionVoteId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from exhibition_vote
+    where exhibition_vote_id = #{exhibitionVoteId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dhu.tickets.entity.ExhibitionVoteExample" >
+    delete from exhibition_vote
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dhu.tickets.entity.ExhibitionVote" >
+    insert into exhibition_vote (exhibition_vote_id, exhibition_name, 
+      exhibition_text, exhibition_img, vote_number, 
+      if_delete, create_date, update_date
+      )
+    values (#{exhibitionVoteId,jdbcType=INTEGER}, #{exhibitionName,jdbcType=VARCHAR}, 
+      #{exhibitionText,jdbcType=VARCHAR}, #{exhibitionImg,jdbcType=VARCHAR}, #{voteNumber,jdbcType=INTEGER}, 
+      #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dhu.tickets.entity.ExhibitionVote" >
+    insert into exhibition_vote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="exhibitionVoteId != null" >
+        exhibition_vote_id,
+      </if>
+      <if test="exhibitionName != null" >
+        exhibition_name,
+      </if>
+      <if test="exhibitionText != null" >
+        exhibition_text,
+      </if>
+      <if test="exhibitionImg != null" >
+        exhibition_img,
+      </if>
+      <if test="voteNumber != null" >
+        vote_number,
+      </if>
+      <if test="ifDelete != null" >
+        if_delete,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="exhibitionVoteId != null" >
+        #{exhibitionVoteId,jdbcType=INTEGER},
+      </if>
+      <if test="exhibitionName != null" >
+        #{exhibitionName,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionText != null" >
+        #{exhibitionText,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionImg != null" >
+        #{exhibitionImg,jdbcType=VARCHAR},
+      </if>
+      <if test="voteNumber != null" >
+        #{voteNumber,jdbcType=INTEGER},
+      </if>
+      <if test="ifDelete != null" >
+        #{ifDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dhu.tickets.entity.ExhibitionVoteExample" resultType="java.lang.Integer" >
+    select count(*) from exhibition_vote
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update exhibition_vote
+    <set >
+      <if test="record.exhibitionVoteId != null" >
+        exhibition_vote_id = #{record.exhibitionVoteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.exhibitionName != null" >
+        exhibition_name = #{record.exhibitionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exhibitionText != null" >
+        exhibition_text = #{record.exhibitionText,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exhibitionImg != null" >
+        exhibition_img = #{record.exhibitionImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.voteNumber != null" >
+        vote_number = #{record.voteNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.ifDelete != null" >
+        if_delete = #{record.ifDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null" >
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update exhibition_vote
+    set exhibition_vote_id = #{record.exhibitionVoteId,jdbcType=INTEGER},
+      exhibition_name = #{record.exhibitionName,jdbcType=VARCHAR},
+      exhibition_text = #{record.exhibitionText,jdbcType=VARCHAR},
+      exhibition_img = #{record.exhibitionImg,jdbcType=VARCHAR},
+      vote_number = #{record.voteNumber,jdbcType=INTEGER},
+      if_delete = #{record.ifDelete,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dhu.tickets.entity.ExhibitionVote" >
+    update exhibition_vote
+    <set >
+      <if test="exhibitionName != null" >
+        exhibition_name = #{exhibitionName,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionText != null" >
+        exhibition_text = #{exhibitionText,jdbcType=VARCHAR},
+      </if>
+      <if test="exhibitionImg != null" >
+        exhibition_img = #{exhibitionImg,jdbcType=VARCHAR},
+      </if>
+      <if test="voteNumber != null" >
+        vote_number = #{voteNumber,jdbcType=INTEGER},
+      </if>
+      <if test="ifDelete != null" >
+        if_delete = #{ifDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where exhibition_vote_id = #{exhibitionVoteId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dhu.tickets.entity.ExhibitionVote" >
+    update exhibition_vote
+    set exhibition_name = #{exhibitionName,jdbcType=VARCHAR},
+      exhibition_text = #{exhibitionText,jdbcType=VARCHAR},
+      exhibition_img = #{exhibitionImg,jdbcType=VARCHAR},
+      vote_number = #{voteNumber,jdbcType=INTEGER},
+      if_delete = #{ifDelete,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where exhibition_vote_id = #{exhibitionVoteId,jdbcType=INTEGER}
+  </update>
+</mapper>

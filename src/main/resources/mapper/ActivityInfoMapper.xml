@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhu.tickets.mapper.ActivityInfoMapper">
+  <resultMap id="BaseResultMap" type="com.dhu.tickets.entity.ActivityInfo">
+    <id column="activity_id" jdbcType="INTEGER" property="activityId" />
+    <result column="activity_name" jdbcType="VARCHAR" property="activityName" />
+    <result column="activity_location" jdbcType="VARCHAR" property="activityLocation" />
+    <result column="activity_introduction" jdbcType="VARCHAR" property="activityIntroduction" />
+    <result column="default_numbers" jdbcType="INTEGER" property="defaultNumbers" />
+    <result column="activity_img" jdbcType="VARCHAR" property="activityImg" />
+    <result column="now_numbers" jdbcType="INTEGER" property="nowNumbers" />
+    <result column="activity_status" jdbcType="INTEGER" property="activityStatus" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="if_vote" jdbcType="INTEGER" property="ifVote" />
+    <result column="assoc_id" jdbcType="INTEGER" property="assocId" />
+    <result column="if_delete" jdbcType="INTEGER" property="ifDelete" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    activity_id, activity_name, activity_location, activity_introduction, default_numbers, 
+    activity_img, now_numbers, activity_status, start_time, end_time, if_vote, assoc_id, 
+    if_delete, create_date, update_date
+  </sql>
+  <select id="selectByExample" parameterType="com.dhu.tickets.entity.ActivityInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from activity_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from activity_info
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from activity_info
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dhu.tickets.entity.ActivityInfoExample">
+    delete from activity_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dhu.tickets.entity.ActivityInfo">
+    insert into activity_info (activity_id, activity_name, activity_location, 
+      activity_introduction, default_numbers, activity_img, 
+      now_numbers, activity_status, start_time, 
+      end_time, if_vote, assoc_id, 
+      if_delete, create_date, update_date
+      )
+    values (#{activityId,jdbcType=INTEGER}, #{activityName,jdbcType=VARCHAR}, #{activityLocation,jdbcType=VARCHAR}, 
+      #{activityIntroduction,jdbcType=VARCHAR}, #{defaultNumbers,jdbcType=INTEGER}, #{activityImg,jdbcType=VARCHAR}, 
+      #{nowNumbers,jdbcType=INTEGER}, #{activityStatus,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{ifVote,jdbcType=INTEGER}, #{assocId,jdbcType=INTEGER}, 
+      #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dhu.tickets.entity.ActivityInfo">
+    insert into activity_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="activityId != null">
+        activity_id,
+      </if>
+      <if test="activityName != null">
+        activity_name,
+      </if>
+      <if test="activityLocation != null">
+        activity_location,
+      </if>
+      <if test="activityIntroduction != null">
+        activity_introduction,
+      </if>
+      <if test="defaultNumbers != null">
+        default_numbers,
+      </if>
+      <if test="activityImg != null">
+        activity_img,
+      </if>
+      <if test="nowNumbers != null">
+        now_numbers,
+      </if>
+      <if test="activityStatus != null">
+        activity_status,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="ifVote != null">
+        if_vote,
+      </if>
+      <if test="assocId != null">
+        assoc_id,
+      </if>
+      <if test="ifDelete != null">
+        if_delete,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="activityId != null">
+        #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="activityName != null">
+        #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityLocation != null">
+        #{activityLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="activityIntroduction != null">
+        #{activityIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultNumbers != null">
+        #{defaultNumbers,jdbcType=INTEGER},
+      </if>
+      <if test="activityImg != null">
+        #{activityImg,jdbcType=VARCHAR},
+      </if>
+      <if test="nowNumbers != null">
+        #{nowNumbers,jdbcType=INTEGER},
+      </if>
+      <if test="activityStatus != null">
+        #{activityStatus,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifVote != null">
+        #{ifVote,jdbcType=INTEGER},
+      </if>
+      <if test="assocId != null">
+        #{assocId,jdbcType=INTEGER},
+      </if>
+      <if test="ifDelete != null">
+        #{ifDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dhu.tickets.entity.ActivityInfoExample" resultType="java.lang.Integer">
+    select count(*) from activity_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update activity_info
+    <set>
+      <if test="record.activityId != null">
+        activity_id = #{record.activityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.activityName != null">
+        activity_name = #{record.activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activityLocation != null">
+        activity_location = #{record.activityLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activityIntroduction != null">
+        activity_introduction = #{record.activityIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defaultNumbers != null">
+        default_numbers = #{record.defaultNumbers,jdbcType=INTEGER},
+      </if>
+      <if test="record.activityImg != null">
+        activity_img = #{record.activityImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nowNumbers != null">
+        now_numbers = #{record.nowNumbers,jdbcType=INTEGER},
+      </if>
+      <if test="record.activityStatus != null">
+        activity_status = #{record.activityStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ifVote != null">
+        if_vote = #{record.ifVote,jdbcType=INTEGER},
+      </if>
+      <if test="record.assocId != null">
+        assoc_id = #{record.assocId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ifDelete != null">
+        if_delete = #{record.ifDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null">
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update activity_info
+    set activity_id = #{record.activityId,jdbcType=INTEGER},
+      activity_name = #{record.activityName,jdbcType=VARCHAR},
+      activity_location = #{record.activityLocation,jdbcType=VARCHAR},
+      activity_introduction = #{record.activityIntroduction,jdbcType=VARCHAR},
+      default_numbers = #{record.defaultNumbers,jdbcType=INTEGER},
+      activity_img = #{record.activityImg,jdbcType=VARCHAR},
+      now_numbers = #{record.nowNumbers,jdbcType=INTEGER},
+      activity_status = #{record.activityStatus,jdbcType=INTEGER},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      if_vote = #{record.ifVote,jdbcType=INTEGER},
+      assoc_id = #{record.assocId,jdbcType=INTEGER},
+      if_delete = #{record.ifDelete,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dhu.tickets.entity.ActivityInfo">
+    update activity_info
+    <set>
+      <if test="activityName != null">
+        activity_name = #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityLocation != null">
+        activity_location = #{activityLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="activityIntroduction != null">
+        activity_introduction = #{activityIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultNumbers != null">
+        default_numbers = #{defaultNumbers,jdbcType=INTEGER},
+      </if>
+      <if test="activityImg != null">
+        activity_img = #{activityImg,jdbcType=VARCHAR},
+      </if>
+      <if test="nowNumbers != null">
+        now_numbers = #{nowNumbers,jdbcType=INTEGER},
+      </if>
+      <if test="activityStatus != null">
+        activity_status = #{activityStatus,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifVote != null">
+        if_vote = #{ifVote,jdbcType=INTEGER},
+      </if>
+      <if test="assocId != null">
+        assoc_id = #{assocId,jdbcType=INTEGER},
+      </if>
+      <if test="ifDelete != null">
+        if_delete = #{ifDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dhu.tickets.entity.ActivityInfo">
+    update activity_info
+    set activity_name = #{activityName,jdbcType=VARCHAR},
+      activity_location = #{activityLocation,jdbcType=VARCHAR},
+      activity_introduction = #{activityIntroduction,jdbcType=VARCHAR},
+      default_numbers = #{defaultNumbers,jdbcType=INTEGER},
+      activity_img = #{activityImg,jdbcType=VARCHAR},
+      now_numbers = #{nowNumbers,jdbcType=INTEGER},
+      activity_status = #{activityStatus,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      if_vote = #{ifVote,jdbcType=INTEGER},
+      assoc_id = #{assocId,jdbcType=INTEGER},
+      if_delete = #{ifDelete,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </update>
+</mapper>
