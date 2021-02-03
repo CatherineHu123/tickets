@@ -1,9 +1,11 @@
 package com.dhu.tickets.mapper;
 
+import com.dhu.tickets.entity.ActivityInfo;
 import com.dhu.tickets.entity.ExhibitionVote;
 import com.dhu.tickets.entity.ExhibitionVoteExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface ExhibitionVoteMapper {
     int countByExample(ExhibitionVoteExample example);
@@ -27,4 +29,7 @@ public interface ExhibitionVoteMapper {
     int updateByPrimaryKeySelective(ExhibitionVote record);
 
     int updateByPrimaryKey(ExhibitionVote record);
+
+    @Select("select * from exhibition_vote where exhibitionStatus = #{exhibitionStatus}")
+    List<ExhibitionVote> getExhibitionByStatus(@Param("exhibitionStatus") Integer exhibitionStatus);
 }

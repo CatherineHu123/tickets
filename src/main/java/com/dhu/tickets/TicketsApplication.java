@@ -10,7 +10,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 @SpringBootApplication
-@MapperScan("com.dhucst.tickets.mapper")
+@MapperScan("com.dhu.tickets.mapper")
 public class TicketsApplication {
 
     public static void main(String[] args) {
