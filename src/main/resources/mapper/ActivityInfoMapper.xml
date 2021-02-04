@@ -101,6 +101,19 @@
     from activity_info
     where activity_id = #{activityId,jdbcType=INTEGER}
   </select>
+  <select id="getActivityByStatus" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from activity_info
+    where activity_status = #{activityStatus,jdbcType=INTEGER}
+    order by start_time desc
+  </select>
+  <select id="getActivityByAss" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from activity_info
+    where assoc_id = #{assocId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from activity_info
     where activity_id = #{activityId,jdbcType=INTEGER}
@@ -111,14 +124,14 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.dhu.tickets.entity.ActivityInfo">
-    insert into activity_info (activity_id, activity_name, activity_location, 
+  <insert id="insert" parameterType="com.dhu.tickets.entity.ActivityInfo" keyProperty="activityId" useGeneratedKeys="true">
+    insert into activity_info (activity_name, activity_location,
       activity_introduction, default_numbers, activity_img, 
       now_numbers, activity_status, start_time, 
       end_time, if_vote, assoc_id, 
       if_delete, create_date, update_date
       )
-    values (#{activityId,jdbcType=INTEGER}, #{activityName,jdbcType=VARCHAR}, #{activityLocation,jdbcType=VARCHAR}, 
+    values (#{activityName,jdbcType=VARCHAR}, #{activityLocation,jdbcType=VARCHAR},
       #{activityIntroduction,jdbcType=VARCHAR}, #{defaultNumbers,jdbcType=INTEGER}, #{activityImg,jdbcType=VARCHAR}, 
       #{nowNumbers,jdbcType=INTEGER}, #{activityStatus,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
       #{endTime,jdbcType=TIMESTAMP}, #{ifVote,jdbcType=INTEGER}, #{assocId,jdbcType=INTEGER}, 

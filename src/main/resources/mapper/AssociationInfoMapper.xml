@@ -93,6 +93,18 @@
     from association_info
     where assoc_id = #{assocId,jdbcType=INTEGER}
   </select>
+  <select id="getAllAssoc" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from association_info
+    where if_delete = #{ifDelete,jdbcType=INTEGER}
+  </select>
+  <select id="getAssocByActivity" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from association_info
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from association_info
     where assoc_id = #{assocId,jdbcType=INTEGER}
@@ -103,11 +115,11 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.dhu.tickets.entity.AssociationInfo">
-    insert into association_info (assoc_id, assoc_text, assoc_img, 
+  <insert id="insert" parameterType="com.dhu.tickets.entity.AssociationInfo" keyProperty="assocId" useGeneratedKeys="true">
+    insert into association_info (assoc_text, assoc_img,
       assoc_contact, if_delete, create_date, 
       update_date, activity_id)
-    values (#{assocId,jdbcType=INTEGER}, #{assocText,jdbcType=VARCHAR}, #{assocImg,jdbcType=VARCHAR}, 
+    values (#{assocText,jdbcType=VARCHAR}, #{assocImg,jdbcType=VARCHAR},
       #{assocContact,jdbcType=VARCHAR}, #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
       #{updateDate,jdbcType=TIMESTAMP}, #{activityId,jdbcType=INTEGER})
   </insert>

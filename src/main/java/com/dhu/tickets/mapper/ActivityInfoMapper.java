@@ -29,9 +29,7 @@ public interface ActivityInfoMapper {
 
     int updateByPrimaryKey(ActivityInfo record);
 
-    @Select("select * from activity_info where activityStatus = #{activityStatus}")
-    List<ActivityInfo> getActivityByStatus(@Param("activityStatus") Integer activityStatus);
+    List<ActivityInfo> getActivityByStatus(Integer activityStatus);
 
-    @Select("select * from activity_info where assocId = #{assocId}")
-    List<ActivityInfo> getActivityByAss(@Param("assocId") Integer assocId);
+    List<ActivityInfo> getActivityByAss(Integer assocId);
 }

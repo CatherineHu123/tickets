@@ -30,9 +30,7 @@ public interface AssociationInfoMapper {
 
     int updateByPrimaryKey(AssociationInfo record);
 
-    @Select("select * from association_info where ifDelete = #{ifDelete}")
-    List<AssociationInfo> getAllAssoc(@Param("ifDelete") Integer ifDelete);
+    List<AssociationInfo> getAllAssoc(Integer ifDelete);
 
-    @Select("select * from association_info where activityId = #{activityId}")
-    List<AssociationInfo> getAssocByActivity(@Param("activityId") Integer activityId);
+    List<AssociationInfo> getAssocByActivity(Integer activityId);
 }
