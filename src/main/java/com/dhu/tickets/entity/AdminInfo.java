@@ -3,7 +3,7 @@ package com.dhu.tickets.entity;
 public class AdminInfo {
     private Integer adminId;
 
-    private Integer sessionId;
+    private String sessionId;
 
     private String adminName;
 
@@ -19,12 +19,12 @@ public class AdminInfo {
         this.adminId = adminId;
     }
 
-    public Integer getSessionId() {
+    public String getSessionId() {
         return sessionId;
     }
 
-    public void setSessionId(Integer sessionId) {
-        this.sessionId = sessionId;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId == null ? null : sessionId.trim();
     }
 
     public String getAdminName() {

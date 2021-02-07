@@ -28,7 +28,7 @@ public interface AssociationMemberMapper {
 
     int updateByPrimaryKey(AssociationMember record);
 
-    List<AssociationMember> selectByAssocKey(Integer assocId);
-
     List<AssociationMember> selectByUserKey(Integer userId);
+
+    List<AssociationMember> selectByAssocKey(Integer assocId);
 }

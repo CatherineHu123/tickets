@@ -115,7 +115,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.dhu.tickets.entity.AssociationInfo" keyProperty="assocId" useGeneratedKeys="true">
+  <insert id="insert" keyProperty="assocId" parameterType="com.dhu.tickets.entity.AssociationInfo" useGeneratedKeys="true">
     insert into association_info (assoc_text, assoc_img,
       assoc_contact, if_delete, create_date, 
       update_date, activity_id)

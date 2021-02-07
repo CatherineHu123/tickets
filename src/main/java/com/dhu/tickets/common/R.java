@@ -8,6 +8,7 @@ public class R {
 
     private String msg;
 
+
     public Integer getCode() {
         return code;
     }

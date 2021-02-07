@@ -1,6 +1,5 @@
 package com.dhu.tickets.entity;
 
-import javax.annotation.Generated;
 import java.util.Date;
 
 public class ActivityInfo {

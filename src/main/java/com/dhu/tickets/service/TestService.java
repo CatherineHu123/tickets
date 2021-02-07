@@ -61,4 +61,14 @@ public interface TestService {
     List<AssociationInfo> selectAInAssocM(Integer userId);
 
     List<UserInfo> selectUInAssocM(Integer assocId);
+
+    /**用户活动表*/
+    UserActivity selectByUAKey(Integer userId, Integer activityId);
+
+    List<ActivityInfo> selectAByUserKey(Integer userId);
+
+    /**用户展览表*/
+    UserExhibition selectByUEKey(Integer userId, Integer activityId);
+
+    List<ExhibitionVote> selectEByUserKey(Integer userId);
 }

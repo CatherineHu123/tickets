@@ -1,5 +1,6 @@
 package com.dhu.tickets.mapper;
 
+import com.dhu.tickets.entity.ActivityInfo;
 import com.dhu.tickets.entity.UserActivity;
 import com.dhu.tickets.entity.UserActivityExample;
 import java.util.List;
@@ -27,4 +28,8 @@ public interface UserActivityMapper {
     int updateByPrimaryKeySelective(UserActivity record);
 
     int updateByPrimaryKey(UserActivity record);
+
+    UserActivity selectByUAKey(Integer userId, Integer activityId);
+
+    List<UserActivity> selectAByUserKey(Integer userId);
 }

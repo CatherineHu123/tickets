@@ -1,11 +1,9 @@
 package com.dhu.tickets.mapper;
 
-import com.dhu.tickets.entity.ActivityInfo;
 import com.dhu.tickets.entity.AssociationInfo;
 import com.dhu.tickets.entity.AssociationInfoExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 public interface AssociationInfoMapper {
     int countByExample(AssociationInfoExample example);

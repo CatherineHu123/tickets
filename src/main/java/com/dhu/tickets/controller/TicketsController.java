@@ -1,6 +1,8 @@
 package com.dhu.tickets.controller;
 
 import com.dhu.tickets.common.R;
+import com.dhu.tickets.common.WrapMapper;
+import com.dhu.tickets.common.Wrapper;
 import com.dhu.tickets.entity.*;
 import com.dhu.tickets.service.TestService;
 import io.swagger.annotations.Api;
@@ -8,7 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/test")
@@ -42,23 +44,23 @@ public class TicketsController {
 
     @GetMapping("/activityByStatus")
     @ApiOperation(notes = "查询指定状态活动列表", value = "查询指定状态活动列表")
-    public List<ActivityInfo> getActivityByStatus(Integer activitystatus) {
+    public Wrapper getActivityByStatus(Integer activitystatus) {
         List<ActivityInfo> activityInfoList = testService.getActivityByStatus(activitystatus);
-        return activityInfoList;
+        return  WrapMapper.ok(activityInfoList);
     }
 
     @GetMapping("/activityByPrimaryKey")
     @ApiOperation(notes = "查询特定活动", value = "查询特定活动")
-    public ActivityInfo selectByPrimaryKey(Integer activityId){
+    public Wrapper selectByPrimaryKey(Integer activityId){
         ActivityInfo activityInfo = testService.selectByPrimaryKey(activityId);
-        return activityInfo;
+        return WrapMapper.ok(activityInfo);
     }
 
     @GetMapping("/activityInAssoc")
     @ApiOperation(notes = "协会中的活动", value = "协会中的活动")
-    public List<ActivityInfo> getActivityByAss(Integer assocId){
+    public Wrapper getActivityByAss(Integer assocId){
         List<ActivityInfo> activityInfoList = testService.getActivityByAss(assocId);
-        return activityInfoList;
+        return WrapMapper.ok(activityInfoList);
     }
 
     /**展览*/
@@ -85,16 +87,16 @@ public class TicketsController {
 
     @GetMapping("/exhibitionByStatus")
     @ApiOperation(notes = "查询指定状态展览列表", value = "查询指定状态展览列表")
-    public List<ExhibitionVote> getExhibitionByStatus(Integer exhibitionStatus){
+    public Wrapper getExhibitionByStatus(Integer exhibitionStatus){
         List<ExhibitionVote> exhibitionVotes = testService.getExhibitionByStatus(exhibitionStatus);
-        return exhibitionVotes;
+        return WrapMapper.ok(exhibitionVotes);
     }
 
     @GetMapping("/exhibitionByPrimaryKey")
     @ApiOperation(notes = "查询指定展览", value = "查询指定展览")
-    public ExhibitionVote selectEByPrimaryKey(Integer exhibitionVoteId){
+    public Wrapper selectEByPrimaryKey(Integer exhibitionVoteId){
         ExhibitionVote exhibitionVote = testService.selectEByPrimaryKey(exhibitionVoteId);
-        return exhibitionVote;
+        return WrapMapper.ok(exhibitionVote);
     }
 
     /**协会*/
@@ -121,45 +123,45 @@ public class TicketsController {
 
     @GetMapping("/association")
     @ApiOperation(notes = "协会列表", value = "协会列表")
-    public List<AssociationInfo> getAllAssoc(Integer ifDelete){
+    public Wrapper getAllAssoc(Integer ifDelete){
         List<AssociationInfo> associationInfos = testService.getAllAssoc(ifDelete);
-        return associationInfos;
+        return WrapMapper.ok(associationInfos);
     }
 
     @GetMapping("/associationByPrimaryKey")
     @ApiOperation(notes = "查询指定协会", value = "查询指定协会")
-    public AssociationInfo selectAssByPrimaryKey(Integer assocId){
+    public Wrapper selectAssByPrimaryKey(Integer assocId){
         AssociationInfo associationInfo = testService.selectAssByPrimaryKey(assocId);
-        return associationInfo;
+        return WrapMapper.ok(associationInfo);
     }
 
     @GetMapping("/associationByActivity")
     @ApiOperation(notes = "根据活动查询协会", value = "根据活动查询协会")
-    public List<AssociationInfo> getAssocByActivity(Integer activityId){
+    public Wrapper getAssocByActivity(Integer activityId){
         List<AssociationInfo> associationInfos = testService.getAssocByActivity(activityId);
-        return associationInfos;
+        return WrapMapper.ok(associationInfos);
     }
 
     /**用户*/
     @GetMapping("/userInfoById")
     @ApiOperation(notes = "通过id获取用户信息", value = "通过id获取用户信息")
-    public UserInfo selectUByPrimaryKey(Integer userId){
+    public Wrapper selectUByPrimaryKey(Integer userId){
         UserInfo userInfo = testService.selectUByPrimaryKey(userId);
-        return userInfo;
+        return WrapMapper.ok(userInfo);
     }
 
     @GetMapping("/userInfoByName")
     @ApiOperation(notes = "通过名字获取用户信息", value = "通过名字获取用户信息")
-    public UserInfo selectByUserName(String userName){
+    public Wrapper selectByUserName(String userName){
         UserInfo userInfo = testService.selectByUserName(userName);
-        return userInfo;
+        return WrapMapper.ok(userInfo);
     }
 
     @GetMapping("/userInfoByPhone")
     @ApiOperation(notes = "通过手机号获取用户信息", value = "通过手机号获取用户信息")
-    public UserInfo selectByUserPhone(String userPhone){
+    public Wrapper selectByUserPhone(String userPhone){
         UserInfo userInfo = testService.selectByUserPhone(userPhone);
-        return userInfo;
+        return WrapMapper.ok(userInfo);
     }
 
     /**协会成员表*/
@@ -183,16 +185,46 @@ public class TicketsController {
 
     @GetMapping("/associationByUser")
     @ApiOperation(notes = "用户加入的协会", value = "用户加入的协会")
-    public List<AssociationInfo> selectAInAssocM(Integer userId){
+    public Wrapper selectAInAssocM(Integer userId){
         List<AssociationInfo> associationInfos = testService.selectAInAssocM(userId);
-        return associationInfos;
+        return WrapMapper.ok(associationInfos);
     }
 
     @GetMapping("/userInAssociation")
     @ApiOperation(notes = "协会中的成员", value = "协会中的成员")
-    public List<UserInfo> selectUInAssocM(Integer assocId){
+    public Wrapper selectUInAssocM(Integer assocId){
         List<UserInfo> userInfos = testService.selectUInAssocM(assocId);
-        return userInfos;
+        return WrapMapper.ok(userInfos);
+    }
+
+    /**用户活动表*/
+    @GetMapping("/selectByUAKey")
+    @ApiOperation(notes = "是否参加活动", value = "是否参加活动")
+    public Wrapper selectByUAKey(Integer userId, Integer activityId){
+        UserActivity userActivity = testService.selectByUAKey(userId, activityId);
+        return WrapMapper.ok(userActivity);
+    }
+
+    @GetMapping("/selectAByUserKey")
+    @ApiOperation(notes = "用户参加的全部活动", value = "用户参加的全部活动")
+    public Wrapper selectAByUserKey(Integer userId){
+        List<ActivityInfo> activityInfos = testService.selectAByUserKey(userId);
+        return WrapMapper.ok(activityInfos);
+    }
+
+    /**用户展览表*/
+    @GetMapping("/selectByUEKey")
+    @ApiOperation(notes = "是否参加展览", value = "是否参加展览")
+    public Wrapper selectByUEKey(Integer userId, Integer activityId){
+        UserExhibition userExhibition = testService.selectByUEKey(userId, activityId);
+        return WrapMapper.ok(userExhibition);
+    }
+
+    @GetMapping("/selectEByUserKey")
+    @ApiOperation(notes = "用户参加的全部展览", value = "用户参加的全部展览")
+    public Wrapper selectEByUserKey(Integer userId){
+        List<ExhibitionVote> exhibitionVotes = testService.selectEByUserKey(userId);
+        return WrapMapper.ok(exhibitionVotes);
     }
 }
 

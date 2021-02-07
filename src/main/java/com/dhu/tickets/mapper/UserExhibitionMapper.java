@@ -1,5 +1,6 @@
 package com.dhu.tickets.mapper;
 
+import com.dhu.tickets.entity.UserActivity;
 import com.dhu.tickets.entity.UserExhibition;
 import com.dhu.tickets.entity.UserExhibitionExample;
 import java.util.List;
@@ -27,4 +28,8 @@ public interface UserExhibitionMapper {
     int updateByPrimaryKeySelective(UserExhibition record);
 
     int updateByPrimaryKey(UserExhibition record);
+
+    UserExhibition selectByUEKey(Integer userId, Integer exhibitId);
+
+    List<UserExhibition> selectEByUserKey(Integer userId);
 }

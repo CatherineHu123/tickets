@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,6 +28,12 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     AssociationMemberMapper associationMemberMapper;
+
+    @Autowired
+    UserActivityMapper userActivityMapper;
+
+    @Autowired
+    UserExhibitionMapper userExhibitionMapper;
 
     /**活动*/
     @Override
@@ -162,7 +169,7 @@ public class TestServiceImpl implements TestService {
     @Override
     public List<AssociationInfo> selectAInAssocM(Integer userId){
         List<AssociationMember> associationMembers = associationMemberMapper.selectByUserKey(userId);
-        List<AssociationInfo> associationInfos = null;
+        List<AssociationInfo> associationInfos = new ArrayList<>();
         for(AssociationMember associationMember : associationMembers){
             AssociationInfo associationInfo = associationInfoMapper.selectByPrimaryKey(associationMember.getAssocId());
             associationInfos.add(associationInfo);
@@ -173,11 +180,47 @@ public class TestServiceImpl implements TestService {
     @Override
     public List<UserInfo> selectUInAssocM(Integer assocId){
         List<AssociationMember> associationMembers = associationMemberMapper.selectByAssocKey(assocId);
-        List<UserInfo> userInfos = null;
+        List<UserInfo> userInfos =  new ArrayList<>();
         for(AssociationMember associationMember : associationMembers){
             UserInfo userInfo = userInfoMapper.selectByPrimaryKey(associationMember.getUserId());
             userInfos.add(userInfo);
         }
         return userInfos;
+    }
+
+    /**用户活动表*/
+    @Override
+    public UserActivity selectByUAKey(Integer userId, Integer activityId){
+        UserActivity userActivity = userActivityMapper.selectByUAKey(userId, activityId);
+        return userActivity;
+    }
+
+    @Override
+    public List<ActivityInfo> selectAByUserKey(Integer userId){
+        List<UserActivity> userActivities = userActivityMapper.selectAByUserKey(userId);
+        List<ActivityInfo> activityInfos = new ArrayList<>();
+        for(UserActivity userActivity : userActivities){
+            ActivityInfo activityInfo = activityInfoMapper.selectByPrimaryKey(userActivity.getActivityId());
+            activityInfos.add(activityInfo);
+        }
+        return activityInfos;
+    }
+
+    /**用户展览表*/
+    @Override
+    public UserExhibition selectByUEKey(Integer userId, Integer exhibitId){
+        UserExhibition userExhibition = userExhibitionMapper.selectByUEKey(userId, exhibitId);
+        return userExhibition;
+    }
+
+    @Override
+    public List<ExhibitionVote> selectEByUserKey(Integer userId){
+        List<UserExhibition> userExhibitions = userExhibitionMapper.selectEByUserKey(userId);
+        List<ExhibitionVote> exhibitionVotes = new ArrayList<>();
+        for(UserExhibition userExhibition: userExhibitions){
+            ExhibitionVote exhibitionVote = exhibitionVoteMapper.selectByPrimaryKey(userExhibition.getExhibitId());
+            exhibitionVotes.add(exhibitionVote);
+        }
+        return exhibitionVotes;
     }
 }

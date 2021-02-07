@@ -174,52 +174,62 @@ public class AdminInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdEqualTo(Integer value) {
+        public Criteria andSessionIdEqualTo(String value) {
             addCriterion("session_id =", value, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdNotEqualTo(Integer value) {
+        public Criteria andSessionIdNotEqualTo(String value) {
             addCriterion("session_id <>", value, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdGreaterThan(Integer value) {
+        public Criteria andSessionIdGreaterThan(String value) {
             addCriterion("session_id >", value, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andSessionIdGreaterThanOrEqualTo(String value) {
             addCriterion("session_id >=", value, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdLessThan(Integer value) {
+        public Criteria andSessionIdLessThan(String value) {
             addCriterion("session_id <", value, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdLessThanOrEqualTo(Integer value) {
+        public Criteria andSessionIdLessThanOrEqualTo(String value) {
             addCriterion("session_id <=", value, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdIn(List<Integer> values) {
+        public Criteria andSessionIdLike(String value) {
+            addCriterion("session_id like", value, "sessionId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSessionIdNotLike(String value) {
+            addCriterion("session_id not like", value, "sessionId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSessionIdIn(List<String> values) {
             addCriterion("session_id in", values, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdNotIn(List<Integer> values) {
+        public Criteria andSessionIdNotIn(List<String> values) {
             addCriterion("session_id not in", values, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdBetween(Integer value1, Integer value2) {
+        public Criteria andSessionIdBetween(String value1, String value2) {
             addCriterion("session_id between", value1, value2, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andSessionIdNotBetween(String value1, String value2) {
             addCriterion("session_id not between", value1, value2, "sessionId");
             return (Criteria) this;
         }
