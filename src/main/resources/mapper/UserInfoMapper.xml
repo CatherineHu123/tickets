@@ -119,8 +119,8 @@
       wx_token, if_delete, create_date, 
       update_date, user_password)
     values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
-      #{wxToken,jdbcType=VARCHAR}, #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
-      #{updateDate,jdbcType=TIMESTAMP}, #{userPassword,jdbcType=VARCHAR})
+      #{wxToken,jdbcType=VARCHAR}, #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=VARCHAR},
+      #{updateDate,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dhu.tickets.entity.UserInfo">
     insert into user_info

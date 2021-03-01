@@ -1,5 +1,7 @@
 package com.dhu.tickets.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class UserInfo {
@@ -13,8 +15,10 @@ public class UserInfo {
 
     private Integer ifDelete;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updateDate;
 
     private String userPassword;

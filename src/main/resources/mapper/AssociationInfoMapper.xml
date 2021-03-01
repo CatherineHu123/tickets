@@ -120,8 +120,8 @@
       assoc_contact, if_delete, create_date, 
       update_date, activity_id)
     values (#{assocText,jdbcType=VARCHAR}, #{assocImg,jdbcType=VARCHAR},
-      #{assocContact,jdbcType=VARCHAR}, #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
-      #{updateDate,jdbcType=TIMESTAMP}, #{activityId,jdbcType=INTEGER})
+      #{assocContact,jdbcType=VARCHAR}, #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=VARCHAR},
+      #{updateDate,jdbcType=VARCHAR}, #{activityId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.dhu.tickets.entity.AssociationInfo">
     insert into association_info

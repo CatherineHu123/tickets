@@ -29,4 +29,6 @@ public interface ExhibitionVoteMapper {
     int updateByPrimaryKey(ExhibitionVote record);
 
     List<ExhibitionVote> getExhibitionByStatus(Integer exhibitionStatus);
+
+    List<ExhibitionVote> getAllExhibition();
 }

@@ -49,6 +49,13 @@ public class TicketsController {
         return  WrapMapper.ok(activityInfoList);
     }
 
+    @GetMapping("/allActivity")
+    @ApiOperation(notes = "查询所有活动", value = "查询所有活动")
+    public Wrapper getAllActivity() {
+        List<ActivityInfo> activityInfoList = testService.getAllActivity();
+        return  WrapMapper.ok(activityInfoList);
+    }
+
     @GetMapping("/activityByPrimaryKey")
     @ApiOperation(notes = "查询特定活动", value = "查询特定活动")
     public Wrapper selectByPrimaryKey(Integer activityId){
@@ -60,6 +67,13 @@ public class TicketsController {
     @ApiOperation(notes = "协会中的活动", value = "协会中的活动")
     public Wrapper getActivityByAss(Integer assocId){
         List<ActivityInfo> activityInfoList = testService.getActivityByAss(assocId);
+        return WrapMapper.ok(activityInfoList);
+    }
+
+    @GetMapping("/activityByStaVote")
+    @ApiOperation(notes = "根据状态和是否抢票查询活动列表", value = "根据状态和是否抢票查询活动列表")
+    public Wrapper getActivityByStaVote(Integer activityStatus, Integer ifVote){
+        List<ActivityInfo> activityInfoList = testService.getActivityByStaVote(activityStatus, ifVote);
         return WrapMapper.ok(activityInfoList);
     }
 
@@ -89,6 +103,13 @@ public class TicketsController {
     @ApiOperation(notes = "查询指定状态展览列表", value = "查询指定状态展览列表")
     public Wrapper getExhibitionByStatus(Integer exhibitionStatus){
         List<ExhibitionVote> exhibitionVotes = testService.getExhibitionByStatus(exhibitionStatus);
+        return WrapMapper.ok(exhibitionVotes);
+    }
+
+    @GetMapping("/allExhibition")
+    @ApiOperation(notes = "查询所有展览", value = "查询所有展览")
+    public Wrapper getAllExhibition(){
+        List<ExhibitionVote> exhibitionVotes = testService.getAllExhibition();
         return WrapMapper.ok(exhibitionVotes);
     }
 

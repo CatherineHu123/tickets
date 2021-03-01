@@ -104,6 +104,12 @@
     where exhibition_status = #{exhibitionStatus,jdbcType=INTEGER}
     order by start_data desc
   </select>
+  <select id="getAllExhibition" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from exhibition_vote
+    order by start_data desc
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from exhibition_vote
     where exhibition_vote_id = #{exhibitionVoteId,jdbcType=INTEGER}
@@ -122,8 +128,8 @@
       exhibition_status)
     values (#{exhibitionName,jdbcType=VARCHAR},
       #{exhibitionText,jdbcType=VARCHAR}, #{exhibitionImg,jdbcType=VARCHAR}, #{voteNumber,jdbcType=INTEGER}, 
-      #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
-      #{startData,jdbcType=TIMESTAMP}, #{endData,jdbcType=TIMESTAMP}, #{exhibitionPlace,jdbcType=VARCHAR}, 
+      #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=VARCHAR}, #{updateDate,jdbcType=VARCHAR},
+      #{startData,jdbcType=VARCHAR}, #{endData,jdbcType=VARCHAR}, #{exhibitionPlace,jdbcType=VARCHAR},
       #{exhibitionStatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.dhu.tickets.entity.ExhibitionVote">

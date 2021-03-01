@@ -108,11 +108,24 @@
     where activity_status = #{activityStatus,jdbcType=INTEGER}
     order by start_time desc
   </select>
+  <select id="getAllActivity" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from activity_info
+    order by start_time desc
+  </select>
   <select id="getActivityByAss" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from activity_info
     where assoc_id = #{assocId,jdbcType=INTEGER}
+  </select>
+  <select id="getActivityByStaVote" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from activity_info
+    where activity_status = #{activityStatus,jdbcType=INTEGER} and if_vote = #{ifVote,jdbcType=INTEGER}
+    order by start_time desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from activity_info
@@ -133,9 +146,9 @@
       )
     values (#{activityName,jdbcType=VARCHAR}, #{activityLocation,jdbcType=VARCHAR},
       #{activityIntroduction,jdbcType=VARCHAR}, #{defaultNumbers,jdbcType=INTEGER}, #{activityImg,jdbcType=VARCHAR}, 
-      #{nowNumbers,jdbcType=INTEGER}, #{activityStatus,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
-      #{endTime,jdbcType=TIMESTAMP}, #{ifVote,jdbcType=INTEGER}, #{assocId,jdbcType=INTEGER}, 
-      #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
+      #{nowNumbers,jdbcType=INTEGER}, #{activityStatus,jdbcType=INTEGER}, #{startTime,jdbcType=VARCHAR},
+      #{endTime,jdbcType=VARCHAR}, #{ifVote,jdbcType=INTEGER}, #{assocId,jdbcType=INTEGER},
+      #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=VARCHAR}, #{updateDate,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.dhu.tickets.entity.ActivityInfo">

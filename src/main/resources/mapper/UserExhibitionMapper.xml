@@ -117,7 +117,7 @@
       if_delete, create_date, update_date
       )
     values (#{userExhibitId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{exhibitId,jdbcType=INTEGER}, 
-      #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
+      #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=VARCHAR}, #{updateDate,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.dhu.tickets.entity.UserExhibition">

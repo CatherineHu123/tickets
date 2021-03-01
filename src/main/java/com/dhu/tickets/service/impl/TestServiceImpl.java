@@ -58,6 +58,12 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
+    public List<ActivityInfo>  getAllActivity(){
+        List<ActivityInfo> activityInfoList = activityInfoMapper.getAllActivity();
+        return activityInfoList;
+    }
+
+    @Override
     public ActivityInfo selectByPrimaryKey(Integer activityId){
         ActivityInfo activityInfo = activityInfoMapper.selectByPrimaryKey(activityId);
         return activityInfo;
@@ -66,6 +72,12 @@ public class TestServiceImpl implements TestService {
     @Override
     public List<ActivityInfo> getActivityByAss(Integer assocId){
         List<ActivityInfo> activityInfoList = activityInfoMapper.getActivityByAss(assocId);
+        return activityInfoList;
+    }
+
+    @Override
+    public List<ActivityInfo> getActivityByStaVote(Integer activityStatus, Integer ifVote){
+        List<ActivityInfo> activityInfoList = activityInfoMapper.getActivityByStaVote(activityStatus, ifVote);
         return activityInfoList;
     }
 
@@ -88,6 +100,12 @@ public class TestServiceImpl implements TestService {
     @Override
     public List<ExhibitionVote> getExhibitionByStatus(Integer exhibitionStatus){
         List<ExhibitionVote> exhibitionVotes = exhibitionVoteMapper.getExhibitionByStatus(exhibitionStatus);
+        return exhibitionVotes;
+    }
+
+    @Override
+    public List<ExhibitionVote> getAllExhibition(){
+        List<ExhibitionVote> exhibitionVotes = exhibitionVoteMapper.getAllExhibition();
         return exhibitionVotes;
     }
 

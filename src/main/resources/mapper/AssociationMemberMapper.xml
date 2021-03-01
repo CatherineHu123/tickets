@@ -118,8 +118,8 @@
       assoc_id, if_delete, create_date, 
       update_date)
     values (#{memberTitle,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER},
-      #{assocId,jdbcType=INTEGER}, #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
-      #{updateDate,jdbcType=TIMESTAMP})
+      #{assocId,jdbcType=INTEGER}, #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=VARCHAR},
+      #{updateDate,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dhu.tickets.entity.AssociationMember">
     insert into association_member

@@ -1,5 +1,7 @@
 package com.dhu.tickets.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class ExhibitionVote {
@@ -15,12 +17,16 @@ public class ExhibitionVote {
 
     private Integer ifDelete;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updateDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startData;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endData;
 
     private String exhibitionPlace;

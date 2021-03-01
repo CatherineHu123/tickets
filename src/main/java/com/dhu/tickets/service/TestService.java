@@ -16,9 +16,13 @@ public interface TestService {
 
     List<ActivityInfo> getActivityByStatus(Integer activitystatus);
 
+    List<ActivityInfo> getAllActivity();
+
     ActivityInfo selectByPrimaryKey(Integer activityId);
 
     List<ActivityInfo> getActivityByAss(Integer assocId);
+
+    List<ActivityInfo> getActivityByStaVote(Integer activityStatus, Integer ifVote);
 
     /**展览*/
     void addExhibition(ExhibitionVote exhibitionVote);
@@ -28,6 +32,8 @@ public interface TestService {
     void updateExhibition(ExhibitionVote exhibitionVote);
 
     List<ExhibitionVote> getExhibitionByStatus(Integer exhibitionStatus);
+
+    List<ExhibitionVote> getAllExhibition();
 
     ExhibitionVote selectEByPrimaryKey(Integer exhibitionVoteId);
 
