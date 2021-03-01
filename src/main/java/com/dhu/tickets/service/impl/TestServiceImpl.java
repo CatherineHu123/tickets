@@ -1,5 +1,6 @@
 package com.dhu.tickets.service.impl;
 
+import com.dhu.tickets.common.TokenUtil;
 import com.dhu.tickets.entity.*;
 import com.dhu.tickets.mapper.*;
 import com.dhu.tickets.service.TestService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -34,6 +36,9 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     UserExhibitionMapper userExhibitionMapper;
+
+    @Autowired
+    AdminInfoMapper adminInfoMapper;
 
     /**活动*/
     @Override
@@ -151,6 +156,22 @@ public class TestServiceImpl implements TestService {
 
     /**用户*/
     @Override
+    public String userLogin(String userName,String passWord){
+        UserInfo userInfo = userInfoMapper.selectByUserName(userName);
+        if(userInfo == null)
+            return null;
+        TokenUtil tokenUtil = new TokenUtil();
+        tokenUtil.setSecret(passWord);
+        String token = tokenUtil.sign(userName);
+        return token;
+    }
+
+    @Override
+    public void userRegister(UserInfo userInfo){
+        userInfoMapper.insert(userInfo);
+    }
+
+    @Override
     public UserInfo selectUByPrimaryKey(Integer userId){
         UserInfo userInfo = userInfoMapper.selectByPrimaryKey(userId);
         return userInfo;
@@ -166,6 +187,30 @@ public class TestServiceImpl implements TestService {
     public UserInfo selectByUserPhone(String userPhone){
         UserInfo userInfo = userInfoMapper.selectByUserPhone(userPhone);
         return userInfo;
+    }
+
+    @Override
+    public void updateUserInfo(UserInfo userInfo){
+        UserInfo user = userInfoMapper.selectByPrimaryKey(userInfo.getUserId());
+        if(userInfo.getUserName() == null)
+            userInfo.setUserName(user.getUserName());
+        if(userInfo.getUserPhone() == null)
+            userInfo.setUserPhone(user.getUserPhone());
+        if(userInfo.getWxToken() == null)
+            userInfo.setWxToken(user.getWxToken());
+        if(userInfo.getIfDelete() == null)
+            userInfo.setIfDelete(user.getIfDelete());
+        if(userInfo.getCreateDate() == null)
+            userInfo.setCreateDate(user.getCreateDate());
+        userInfo.setUpdateDate(new Date());
+        if(userInfo.getUserPassword() == null)
+            userInfo.setUserPassword(user.getUserPassword());
+        userInfoMapper.updateUserInfo(userInfo);
+    }
+
+    @Override
+    public void userDelete(Integer userId){
+        userInfoMapper.deleteByPrimaryKey(userId);
     }
 
     /**协会成员表*/
@@ -240,5 +285,59 @@ public class TestServiceImpl implements TestService {
             exhibitionVotes.add(exhibitionVote);
         }
         return exhibitionVotes;
+    }
+
+    /**管理员表**/
+    @Override
+    public String adminLogin(String adminName,String passWord){
+        AdminInfo adminInfo = adminInfoMapper.selectByAdminName(adminName);
+        if(adminInfo == null)
+            return null;
+        TokenUtil tokenUtil = new TokenUtil();
+        tokenUtil.setSecret(passWord);
+        String token = tokenUtil.sign(adminName);
+        return token;
+    }
+
+    @Override
+    public void adminRegister(AdminInfo adminInfo){
+        adminInfoMapper.insert(adminInfo);
+    }
+
+    @Override
+    public void updateAdminInfo(AdminInfo adminInfo){
+        AdminInfo admin = adminInfoMapper.selectByPrimaryKey(adminInfo.getAdminId());
+        if(adminInfo.getAdminName() == null)
+            adminInfo.setAdminName(admin.getAdminName());
+        if(adminInfo.getAdminPassword() == null)
+            adminInfo.setAdminPassword(admin.getAdminPassword());
+        if(adminInfo.getAdminPhone() == null)
+            adminInfo.setAdminPhone(admin.getAdminPhone());
+        if(adminInfo.getSessionId() == null)
+            adminInfo.setSessionId(admin.getSessionId());
+        adminInfoMapper.updateAdminInfo(adminInfo);
+    }
+
+    @Override
+    public void adminDelete(Integer adminId){
+        adminInfoMapper.deleteByPrimaryKey(adminId);
+    }
+
+    @Override
+    public AdminInfo selectAByPrimaryKey(Integer adminId){
+        AdminInfo adminInfo = adminInfoMapper.selectByPrimaryKey(adminId);
+        return adminInfo;
+    }
+
+    @Override
+    public AdminInfo selectByAdminName(String adminName){
+        AdminInfo adminInfo = adminInfoMapper.selectByAdminName(adminName);
+        return adminInfo;
+    }
+
+    @Override
+    public AdminInfo selectByAdminPhone(String adminPhone){
+        AdminInfo adminInfo = adminInfoMapper.selectByAdminPhone(adminPhone);
+        return adminInfo;
     }
 }

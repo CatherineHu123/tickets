@@ -3,6 +3,8 @@ package com.dhu.tickets.mapper;
 import com.dhu.tickets.entity.AdminInfo;
 import com.dhu.tickets.entity.AdminInfoExample;
 import java.util.List;
+
+import com.dhu.tickets.entity.UserInfo;
 import org.apache.ibatis.annotations.Param;
 
 public interface AdminInfoMapper {
@@ -27,4 +29,10 @@ public interface AdminInfoMapper {
     int updateByPrimaryKeySelective(AdminInfo record);
 
     int updateByPrimaryKey(AdminInfo record);
+
+    int updateAdminInfo(AdminInfo record);
+
+    AdminInfo selectByAdminName(String adminName);
+
+    AdminInfo selectByAdminPhone(String adminPhone);
 }

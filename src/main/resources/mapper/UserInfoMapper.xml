@@ -114,11 +114,11 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.dhu.tickets.entity.UserInfo">
-    insert into user_info (user_id, user_name, user_phone, 
+  <insert id="insert" parameterType="com.dhu.tickets.entity.UserInfo" keyProperty="userId" useGeneratedKeys="true">
+    insert into user_info (user_name, user_phone,
       wx_token, if_delete, create_date, 
       update_date, user_password)
-    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
+    values (#{userName,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR},
       #{wxToken,jdbcType=VARCHAR}, #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=VARCHAR},
       #{updateDate,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR})
   </insert>
@@ -256,7 +256,7 @@
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.dhu.tickets.entity.UserInfo">
+  <update id="updateUserInfo" parameterType="com.dhu.tickets.entity.UserInfo">
     update user_info
     set user_name = #{userName,jdbcType=VARCHAR},
       user_phone = #{userPhone,jdbcType=VARCHAR},

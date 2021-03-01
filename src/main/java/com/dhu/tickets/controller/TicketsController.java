@@ -1,5 +1,6 @@
 package com.dhu.tickets.controller;
 
+import org.apache.commons.lang.StringUtils ;
 import com.dhu.tickets.common.R;
 import com.dhu.tickets.common.WrapMapper;
 import com.dhu.tickets.common.Wrapper;
@@ -8,6 +9,8 @@ import com.dhu.tickets.service.TestService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -164,6 +167,40 @@ public class TicketsController {
     }
 
     /**用户*/
+    @PostMapping("/userLogin")
+    @ApiOperation(notes = "用户登录", value = "用户登录")
+    public Wrapper usrLogin(String userName, String passWord){
+        String token= testService.userLogin(userName, passWord);
+        if (StringUtils.isBlank(token)){
+            return WrapMapper.ok(new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
+        }
+        UserInfo userInfo = testService.selectByUserName(userName);
+        userInfo.setWxToken(token);
+        testService.updateUserInfo(userInfo);
+        return WrapMapper.ok(token);
+    }
+
+    @PostMapping("/userUpdate")
+    @ApiOperation(notes = "修改用户信息", value = "修改用户信息")
+    public R userInfoUpdate(UserInfo userInfo){
+        testService.updateUserInfo(userInfo);
+        return R.suc();
+    }
+
+    @PostMapping("/userRegister")
+    @ApiOperation(notes = "用户注册", value = "用户注册")
+    public R userRegister(UserInfo userInfo){
+        testService.userRegister(userInfo);
+        return R.suc();
+    }
+
+    @PostMapping("/userDelete")
+    @ApiOperation(notes = "删除用户", value = "删除用户")
+    public R userDelete(Integer userId){
+       testService.userDelete(userId);
+       return R.suc();
+    }
+
     @GetMapping("/userInfoById")
     @ApiOperation(notes = "通过id获取用户信息", value = "通过id获取用户信息")
     public Wrapper selectUByPrimaryKey(Integer userId){
@@ -246,6 +283,62 @@ public class TicketsController {
     public Wrapper selectEByUserKey(Integer userId){
         List<ExhibitionVote> exhibitionVotes = testService.selectEByUserKey(userId);
         return WrapMapper.ok(exhibitionVotes);
+    }
+
+    /**管理员**/
+    @PostMapping("/adminLogin")
+    @ApiOperation(notes = "管理员登录", value = "管理员登录")
+    public Wrapper adminLogin(String adminName, String passWord){
+        String token= testService.adminLogin(adminName, passWord);
+        if (StringUtils.isBlank(token)){
+            return WrapMapper.ok(new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
+        }
+        AdminInfo adminInfo = testService.selectByAdminName(adminName);
+        adminInfo.setSessionId(token);
+        testService.updateAdminInfo(adminInfo);
+        return WrapMapper.ok(token);
+    }
+
+    @PostMapping("/adminRegister")
+    @ApiOperation(notes = "管理员注册", value = "管理员注册")
+    public R adminRegister(AdminInfo adminInfo){
+        testService.adminRegister(adminInfo);
+        return R.suc();
+    }
+
+    @PostMapping("/adminUpdate")
+    @ApiOperation(notes = "修改管理员信息", value = "修改管理员信息")
+    public R updateAdminInfo(AdminInfo adminInfo){
+        testService.updateAdminInfo(adminInfo);
+        return R.suc();
+    }
+
+    @GetMapping("/adminInfoById")
+    @ApiOperation(notes = "通过id获取管理员信息", value = "通过id获取管理员信息")
+    public Wrapper selectAByPrimaryKey(Integer adminId){
+        AdminInfo adminInfo = testService.selectAByPrimaryKey(adminId);
+        return WrapMapper.ok(adminInfo);
+    }
+
+    @GetMapping("/adminInfoByName")
+    @ApiOperation(notes = "通过名字获取管理员信息", value = "通过名字获取管理员信息")
+    public Wrapper selectByAdminName(String adminName){
+        AdminInfo adminInfo = testService.selectByAdminName(adminName);
+        return WrapMapper.ok(adminInfo);
+    }
+
+    @GetMapping("/adminInfoByPhone")
+    @ApiOperation(notes = "通过手机号获取管理员信息", value = "通过手机号获取管理员信息")
+    public Wrapper selectByAdminPhone(String adminPhone){
+        AdminInfo adminInfo = testService.selectByAdminPhone(adminPhone);
+        return WrapMapper.ok(adminInfo);
+    }
+
+    @PostMapping("/adminDelete")
+    @ApiOperation(notes = "删除管理员", value = "删除管理员")
+    public R adminDelete(Integer adminId){
+        testService.adminDelete(adminId);
+        return R.suc();
     }
 }
 

@@ -89,6 +89,18 @@
     from admin_info
     where admin_id = #{adminId,jdbcType=INTEGER}
   </select>
+  <select id="selectByAdminName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from admin_info
+    where admin_name = #{adminName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByAdminPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from admin_info
+    where admin_phone = #{adminPhone,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from admin_info
     where admin_id = #{adminId,jdbcType=INTEGER}
@@ -99,10 +111,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.dhu.tickets.entity.AdminInfo">
-    insert into admin_info (admin_id, session_id, admin_name, 
+  <insert id="insert" parameterType="com.dhu.tickets.entity.AdminInfo" keyProperty="adminId" useGeneratedKeys="true">
+    insert into admin_info (session_id, admin_name,
       admin_password, admin_phone)
-    values (#{adminId,jdbcType=INTEGER}, #{sessionId,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR}, 
+    values (#{sessionId,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR},
       #{adminPassword,jdbcType=VARCHAR}, #{adminPhone,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dhu.tickets.entity.AdminInfo">
@@ -200,7 +212,7 @@
     </set>
     where admin_id = #{adminId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.dhu.tickets.entity.AdminInfo">
+  <update id="updateAdminInfo" parameterType="com.dhu.tickets.entity.AdminInfo">
     update admin_info
     set session_id = #{sessionId,jdbcType=VARCHAR},
       admin_name = #{adminName,jdbcType=VARCHAR},

@@ -1,5 +1,6 @@
 package com.dhu.tickets.service;
 
+import com.dhu.tickets.common.TokenUtil;
 import com.dhu.tickets.entity.*;
 import org.apache.ibatis.annotations.Param;
 
@@ -51,11 +52,19 @@ public interface TestService {
     List<AssociationInfo> getAssocByActivity(Integer activityId);
 
     /**用户*/
+    String userLogin(String name,String password);
+
+    void userRegister(UserInfo userInfo);
+
     UserInfo selectUByPrimaryKey(Integer userId);
 
     UserInfo selectByUserName(String userName);
 
     UserInfo selectByUserPhone(String userPhone);
+
+    void updateUserInfo(UserInfo userInfo);
+
+    void userDelete(Integer userId);
 
     /**协会成员表*/
     void addAssociationMember(AssociationMember associationMember);
@@ -77,4 +86,19 @@ public interface TestService {
     UserExhibition selectByUEKey(Integer userId, Integer activityId);
 
     List<ExhibitionVote> selectEByUserKey(Integer userId);
+
+    /**管理员表**/
+    String adminLogin(String name,String passWord);
+
+    void adminRegister(AdminInfo adminInfo);
+
+    void updateAdminInfo(AdminInfo adminInfo);
+
+    void adminDelete(Integer adminId);
+
+    AdminInfo selectAByPrimaryKey(Integer adminId);
+
+    AdminInfo selectByAdminName(String adminName);
+
+    AdminInfo selectByAdminPhone(String adminPhone);
 }
