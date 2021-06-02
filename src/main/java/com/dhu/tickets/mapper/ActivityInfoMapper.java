@@ -35,5 +35,5 @@ public interface ActivityInfoMapper {
 
     List<ActivityInfo> getActivityByAss(Integer assocId);
 
-    List<ActivityInfo> getActivityByStaVote(Integer activityStatus, Integer ifVote);
+    List<ActivityInfo> getActivityByStaVote(Integer activityStatus, Integer ifLimit);
 }

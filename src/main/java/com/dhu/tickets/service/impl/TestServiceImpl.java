@@ -99,7 +99,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void updateExhibition(ExhibitionVote exhibitionVote){
-        exhibitionVoteMapper.updateByPrimaryKey(exhibitionVote);
+        exhibitionVoteMapper.updateExhibition(exhibitionVote);
     }
 
     @Override
@@ -149,8 +149,9 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public List<AssociationInfo> getAssocByActivity(Integer activityId){
-        List<AssociationInfo> associationInfos = associationInfoMapper.getAssocByActivity(activityId);
+    public AssociationInfo getAssocByActivity(Integer activityId){
+        Integer assocId = activityInfoMapper.selectByPrimaryKey(activityId).getAssocId();
+        AssociationInfo associationInfos = associationInfoMapper.selectByPrimaryKey(assocId);
         return associationInfos;
     }
 
@@ -169,6 +170,12 @@ public class TestServiceImpl implements TestService {
     @Override
     public void userRegister(UserInfo userInfo){
         userInfoMapper.insert(userInfo);
+    }
+
+    @Override
+    public List<UserInfo> getAllUser(){
+        List<UserInfo> userInfos = userInfoMapper.getAllUser();
+        return userInfos;
     }
 
     @Override
@@ -267,6 +274,23 @@ public class TestServiceImpl implements TestService {
             activityInfos.add(activityInfo);
         }
         return activityInfos;
+    }
+
+    @Override
+    public List<UserInfo> selectUByActivityKey(Integer activityId){
+        List<UserActivity> userActivities = userActivityMapper.selectUByActivityKey(activityId);
+        //System.out.println("******size = *********"+userActivities.size());
+        List<UserInfo> userInfos = new ArrayList<>();
+        for(UserActivity userActivity : userActivities){
+            UserInfo userInfo = userInfoMapper.selectByPrimaryKey(userActivity.getUserId());
+            userInfos.add(userInfo);
+        }
+        return userInfos;
+    }
+
+    @Override
+    public void deleteActivityUser(Integer userActivityId){
+        userActivityMapper.deleteByPrimaryKey(userActivityId);
     }
 
     /**用户展览表*/

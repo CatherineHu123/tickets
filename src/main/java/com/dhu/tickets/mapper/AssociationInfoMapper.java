@@ -29,6 +29,4 @@ public interface AssociationInfoMapper {
     int updateByPrimaryKey(AssociationInfo record);
 
     List<AssociationInfo> getAllAssoc(Integer ifDelete);
-
-    List<AssociationInfo> getAssocByActivity(Integer activityId);
 }

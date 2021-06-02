@@ -1,7 +1,11 @@
 package com.dhu.tickets.entity;
 
+import com.dhu.tickets.DateToLongSerializer;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.*;
 import java.util.Date;
 
 public class ActivityInfo {
@@ -13,7 +17,7 @@ public class ActivityInfo {
 
     private String activityIntroduction;
 
-    private Integer defaultNumbers;
+    private Integer maxNumbers;
 
     private String activityImg;
 
@@ -21,22 +25,22 @@ public class ActivityInfo {
 
     private Integer activityStatus;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonSerialize(using = DateToLongSerializer.class)
     private Date startTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonSerialize(using = DateToLongSerializer.class)
     private Date endTime;
 
-    private Integer ifVote;
+    private Integer ifLimit;
 
     private Integer assocId;
 
     private Integer ifDelete;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonSerialize(using = DateToLongSerializer.class)
     private Date createDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonSerialize(using = DateToLongSerializer.class)
     private Date updateDate;
 
     public Integer getActivityId() {
@@ -71,12 +75,12 @@ public class ActivityInfo {
         this.activityIntroduction = activityIntroduction == null ? null : activityIntroduction.trim();
     }
 
-    public Integer getDefaultNumbers() {
-        return defaultNumbers;
+    public Integer getMaxNumbers() {
+        return maxNumbers;
     }
 
-    public void setDefaultNumbers(Integer defaultNumbers) {
-        this.defaultNumbers = defaultNumbers;
+    public void setMaxNumbers(Integer maxNumbers) {
+        this.maxNumbers = maxNumbers;
     }
 
     public String getActivityImg() {
@@ -107,24 +111,42 @@ public class ActivityInfo {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
+    public void setStartTime(String startTime) {
+        if(startTime.contains("-")){
+            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                this.startTime = sdf.parse(startTime);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else{
+            this.startTime = new Date(Long.parseLong(startTime));
+        }
     }
 
     public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public void setEndTime(String endTime) {
+        if(endTime.contains("-")){
+            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                this.endTime = sdf.parse(endTime);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else{
+            this.endTime = new Date(Long.parseLong(endTime));
+        }
     }
 
-    public Integer getIfVote() {
-        return ifVote;
+    public Integer getIfLimit() {
+        return ifLimit;
     }
 
-    public void setIfVote(Integer ifVote) {
-        this.ifVote = ifVote;
+    public void setIfLimit(Integer ifLimit) {
+        this.ifLimit = ifLimit;
     }
 
     public Integer getAssocId() {
@@ -147,15 +169,33 @@ public class ActivityInfo {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreateDate(String createDate) {
+        if(createDate.contains("-")){
+            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                this.createDate = sdf.parse(createDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else{
+            this.createDate = new Date(Long.parseLong(createDate));
+        }
     }
 
     public Date getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
+    public void setUpdateDate(String updateDate) {
+        if(updateDate.contains("-")){
+            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                this.updateDate = sdf.parse(updateDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else{
+            this.updateDate = new Date(Long.parseLong(updateDate));
+        }
     }
 }

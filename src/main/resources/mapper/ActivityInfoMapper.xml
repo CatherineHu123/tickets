@@ -6,13 +6,13 @@
     <result column="activity_name" jdbcType="VARCHAR" property="activityName" />
     <result column="activity_location" jdbcType="VARCHAR" property="activityLocation" />
     <result column="activity_introduction" jdbcType="VARCHAR" property="activityIntroduction" />
-    <result column="default_numbers" jdbcType="INTEGER" property="defaultNumbers" />
+    <result column="max_numbers" jdbcType="INTEGER" property="maxNumbers" />
     <result column="activity_img" jdbcType="VARCHAR" property="activityImg" />
     <result column="now_numbers" jdbcType="INTEGER" property="nowNumbers" />
     <result column="activity_status" jdbcType="INTEGER" property="activityStatus" />
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
-    <result column="if_vote" jdbcType="INTEGER" property="ifVote" />
+    <result column="if_limit" jdbcType="INTEGER" property="ifLimit" />
     <result column="assoc_id" jdbcType="INTEGER" property="assocId" />
     <result column="if_delete" jdbcType="INTEGER" property="ifDelete" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
@@ -77,8 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    activity_id, activity_name, activity_location, activity_introduction, default_numbers, 
-    activity_img, now_numbers, activity_status, start_time, end_time, if_vote, assoc_id, 
+    activity_id, activity_name, activity_location, activity_introduction, max_numbers, 
+    activity_img, now_numbers, activity_status, start_time, end_time, if_limit, assoc_id, 
     if_delete, create_date, update_date
   </sql>
   <select id="selectByExample" parameterType="com.dhu.tickets.entity.ActivityInfoExample" resultMap="BaseResultMap">
@@ -124,7 +124,7 @@
     select
     <include refid="Base_Column_List" />
     from activity_info
-    where activity_status = #{activityStatus,jdbcType=INTEGER} and if_vote = #{ifVote,jdbcType=INTEGER}
+    where activity_status = #{activityStatus,jdbcType=INTEGER} and if_limit = #{ifLimit,jdbcType=INTEGER}
     order by start_time desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -137,18 +137,18 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.dhu.tickets.entity.ActivityInfo" keyProperty="activityId" useGeneratedKeys="true">
-    insert into activity_info (activity_name, activity_location,
-      activity_introduction, default_numbers, activity_img, 
+  <insert id="insert" keyProperty="activityId" parameterType="com.dhu.tickets.entity.ActivityInfo" useGeneratedKeys="true">
+    insert into activity_info (activity_id, activity_name, activity_location, 
+      activity_introduction, max_numbers, activity_img, 
       now_numbers, activity_status, start_time, 
-      end_time, if_vote, assoc_id, 
+      end_time, if_limit, assoc_id, 
       if_delete, create_date, update_date
       )
-    values (#{activityName,jdbcType=VARCHAR}, #{activityLocation,jdbcType=VARCHAR},
-      #{activityIntroduction,jdbcType=VARCHAR}, #{defaultNumbers,jdbcType=INTEGER}, #{activityImg,jdbcType=VARCHAR}, 
-      #{nowNumbers,jdbcType=INTEGER}, #{activityStatus,jdbcType=INTEGER}, #{startTime,jdbcType=VARCHAR},
-      #{endTime,jdbcType=VARCHAR}, #{ifVote,jdbcType=INTEGER}, #{assocId,jdbcType=INTEGER},
-      #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=VARCHAR}, #{updateDate,jdbcType=VARCHAR}
+    values (#{activityId,jdbcType=INTEGER}, #{activityName,jdbcType=VARCHAR}, #{activityLocation,jdbcType=VARCHAR}, 
+      #{activityIntroduction,jdbcType=VARCHAR}, #{maxNumbers,jdbcType=INTEGER}, #{activityImg,jdbcType=VARCHAR}, 
+      #{nowNumbers,jdbcType=INTEGER}, #{activityStatus,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{ifLimit,jdbcType=INTEGER}, #{assocId,jdbcType=INTEGER}, 
+      #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.dhu.tickets.entity.ActivityInfo">
@@ -166,8 +166,8 @@
       <if test="activityIntroduction != null">
         activity_introduction,
       </if>
-      <if test="defaultNumbers != null">
-        default_numbers,
+      <if test="maxNumbers != null">
+        max_numbers,
       </if>
       <if test="activityImg != null">
         activity_img,
@@ -184,8 +184,8 @@
       <if test="endTime != null">
         end_time,
       </if>
-      <if test="ifVote != null">
-        if_vote,
+      <if test="ifLimit != null">
+        if_limit,
       </if>
       <if test="assocId != null">
         assoc_id,
@@ -213,8 +213,8 @@
       <if test="activityIntroduction != null">
         #{activityIntroduction,jdbcType=VARCHAR},
       </if>
-      <if test="defaultNumbers != null">
-        #{defaultNumbers,jdbcType=INTEGER},
+      <if test="maxNumbers != null">
+        #{maxNumbers,jdbcType=INTEGER},
       </if>
       <if test="activityImg != null">
         #{activityImg,jdbcType=VARCHAR},
@@ -231,8 +231,8 @@
       <if test="endTime != null">
         #{endTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="ifVote != null">
-        #{ifVote,jdbcType=INTEGER},
+      <if test="ifLimit != null">
+        #{ifLimit,jdbcType=INTEGER},
       </if>
       <if test="assocId != null">
         #{assocId,jdbcType=INTEGER},
@@ -269,8 +269,8 @@
       <if test="record.activityIntroduction != null">
         activity_introduction = #{record.activityIntroduction,jdbcType=VARCHAR},
       </if>
-      <if test="record.defaultNumbers != null">
-        default_numbers = #{record.defaultNumbers,jdbcType=INTEGER},
+      <if test="record.maxNumbers != null">
+        max_numbers = #{record.maxNumbers,jdbcType=INTEGER},
       </if>
       <if test="record.activityImg != null">
         activity_img = #{record.activityImg,jdbcType=VARCHAR},
@@ -287,8 +287,8 @@
       <if test="record.endTime != null">
         end_time = #{record.endTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.ifVote != null">
-        if_vote = #{record.ifVote,jdbcType=INTEGER},
+      <if test="record.ifLimit != null">
+        if_limit = #{record.ifLimit,jdbcType=INTEGER},
       </if>
       <if test="record.assocId != null">
         assoc_id = #{record.assocId,jdbcType=INTEGER},
@@ -313,13 +313,13 @@
       activity_name = #{record.activityName,jdbcType=VARCHAR},
       activity_location = #{record.activityLocation,jdbcType=VARCHAR},
       activity_introduction = #{record.activityIntroduction,jdbcType=VARCHAR},
-      default_numbers = #{record.defaultNumbers,jdbcType=INTEGER},
+      max_numbers = #{record.maxNumbers,jdbcType=INTEGER},
       activity_img = #{record.activityImg,jdbcType=VARCHAR},
       now_numbers = #{record.nowNumbers,jdbcType=INTEGER},
       activity_status = #{record.activityStatus,jdbcType=INTEGER},
       start_time = #{record.startTime,jdbcType=TIMESTAMP},
       end_time = #{record.endTime,jdbcType=TIMESTAMP},
-      if_vote = #{record.ifVote,jdbcType=INTEGER},
+      if_limit = #{record.ifLimit,jdbcType=INTEGER},
       assoc_id = #{record.assocId,jdbcType=INTEGER},
       if_delete = #{record.ifDelete,jdbcType=INTEGER},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
@@ -340,8 +340,8 @@
       <if test="activityIntroduction != null">
         activity_introduction = #{activityIntroduction,jdbcType=VARCHAR},
       </if>
-      <if test="defaultNumbers != null">
-        default_numbers = #{defaultNumbers,jdbcType=INTEGER},
+      <if test="maxNumbers != null">
+        max_numbers = #{maxNumbers,jdbcType=INTEGER},
       </if>
       <if test="activityImg != null">
         activity_img = #{activityImg,jdbcType=VARCHAR},
@@ -358,8 +358,8 @@
       <if test="endTime != null">
         end_time = #{endTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="ifVote != null">
-        if_vote = #{ifVote,jdbcType=INTEGER},
+      <if test="ifLimit != null">
+        if_limit = #{ifLimit,jdbcType=INTEGER},
       </if>
       <if test="assocId != null">
         assoc_id = #{assocId,jdbcType=INTEGER},
@@ -381,13 +381,13 @@
     set activity_name = #{activityName,jdbcType=VARCHAR},
       activity_location = #{activityLocation,jdbcType=VARCHAR},
       activity_introduction = #{activityIntroduction,jdbcType=VARCHAR},
-      default_numbers = #{defaultNumbers,jdbcType=INTEGER},
+      max_numbers = #{maxNumbers,jdbcType=INTEGER},
       activity_img = #{activityImg,jdbcType=VARCHAR},
       now_numbers = #{nowNumbers,jdbcType=INTEGER},
       activity_status = #{activityStatus,jdbcType=INTEGER},
       start_time = #{startTime,jdbcType=TIMESTAMP},
       end_time = #{endTime,jdbcType=TIMESTAMP},
-      if_vote = #{ifVote,jdbcType=INTEGER},
+      if_limit = #{ifLimit,jdbcType=INTEGER},
       assoc_id = #{assocId,jdbcType=INTEGER},
       if_delete = #{ifDelete,jdbcType=INTEGER},
       create_date = #{createDate,jdbcType=TIMESTAMP},

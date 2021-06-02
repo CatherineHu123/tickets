@@ -26,7 +26,7 @@ public interface ExhibitionVoteMapper {
 
     int updateByPrimaryKeySelective(ExhibitionVote record);
 
-    int updateByPrimaryKey(ExhibitionVote record);
+    int updateExhibition(ExhibitionVote record);
 
     List<ExhibitionVote> getExhibitionByStatus(Integer exhibitionStatus);
 

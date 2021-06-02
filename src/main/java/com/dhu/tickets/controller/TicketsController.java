@@ -162,7 +162,7 @@ public class TicketsController {
     @GetMapping("/associationByActivity")
     @ApiOperation(notes = "根据活动查询协会", value = "根据活动查询协会")
     public Wrapper getAssocByActivity(Integer activityId){
-        List<AssociationInfo> associationInfos = testService.getAssocByActivity(activityId);
+        AssociationInfo associationInfos = testService.getAssocByActivity(activityId);
         return WrapMapper.ok(associationInfos);
     }
 
@@ -199,6 +199,13 @@ public class TicketsController {
     public R userDelete(Integer userId){
        testService.userDelete(userId);
        return R.suc();
+    }
+
+    @GetMapping("/allUser")
+    @ApiOperation(notes = "查询所有用户", value = "查询所有用户")
+    public Wrapper getAllUser(){
+        List<UserInfo> userInfos = testService.getAllUser();
+        return WrapMapper.ok(userInfos);
     }
 
     @GetMapping("/userInfoById")
@@ -268,6 +275,20 @@ public class TicketsController {
     public Wrapper selectAByUserKey(Integer userId){
         List<ActivityInfo> activityInfos = testService.selectAByUserKey(userId);
         return WrapMapper.ok(activityInfos);
+    }
+
+    @GetMapping("/selectUByActivityKey")
+    @ApiOperation(notes = "活动所拥有的用户", value = "活动所拥有的用户")
+    public Wrapper selectUByActivityKey(Integer activityId){
+        List<UserInfo> userInfos = testService.selectUByActivityKey(activityId);
+        return WrapMapper.ok(userInfos);
+    }
+
+    @PostMapping("/deleteActivityUser")
+    @ApiOperation(notes = "删除用户所参加的活动", value = "删除用户所参加的活动")
+    public R deleteActivityUser(Integer userActivityId){
+        testService.deleteActivityUser(userActivityId);
+        return R.suc();
     }
 
     /**用户展览表*/

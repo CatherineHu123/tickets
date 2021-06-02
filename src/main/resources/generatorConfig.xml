@@ -50,13 +50,13 @@
         </javaClientGenerator>
         <!-- 指定数据库表 -->
         <table schema="asdb" tableName="activity_info"></table>
-        <table schema="asdb" tableName="admin_info"></table>
+        <!--table schema="asdb" tableName="admin_info"></table>
         <table schema="asdb" tableName="association_info"></table>
         <table schema="asdb" tableName="association_member"></table>
         <table schema="asdb" tableName="exhibition_vote"></table>
         <table schema="asdb" tableName="user_activity"></table>
         <table schema="asdb" tableName="user_exhibition"></table>
-        <table schema="asdb" tableName="user_info"></table>
+        <table schema="asdb" tableName="user_info"></table>-->
         <!--        <table schema="tickets" tableName="apply"></table>-->
         <!--        <table schema="tickets" tableName="admin"></table>-->
     </context>

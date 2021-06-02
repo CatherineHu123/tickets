@@ -32,5 +32,5 @@ public interface UserInfoMapper {
 
     UserInfo selectByUserPhone(String userPhone);
 
-
+    List<UserInfo> getAllUser();
 }

@@ -4,6 +4,8 @@ import com.dhu.tickets.entity.ActivityInfo;
 import com.dhu.tickets.entity.UserActivity;
 import com.dhu.tickets.entity.UserActivityExample;
 import java.util.List;
+
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserActivityMapper {
@@ -32,4 +34,6 @@ public interface UserActivityMapper {
     UserActivity selectByUAKey(Integer userId, Integer activityId);
 
     List<UserActivity> selectAByUserKey(Integer userId);
+
+    List<UserActivity> selectUByActivityKey(Integer activityId);
 }

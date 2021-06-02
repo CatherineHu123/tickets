@@ -49,7 +49,7 @@ public interface TestService {
 
     AssociationInfo selectAssByPrimaryKey(Integer assocId);
 
-    List<AssociationInfo> getAssocByActivity(Integer activityId);
+    AssociationInfo getAssocByActivity(Integer activityId);
 
     /**用户*/
     String userLogin(String name,String password);
@@ -66,6 +66,8 @@ public interface TestService {
 
     void userDelete(Integer userId);
 
+    List<UserInfo> getAllUser();
+
     /**协会成员表*/
     void addAssociationMember(AssociationMember associationMember);
 
@@ -81,6 +83,10 @@ public interface TestService {
     UserActivity selectByUAKey(Integer userId, Integer activityId);
 
     List<ActivityInfo> selectAByUserKey(Integer userId);
+
+    List<UserInfo> selectUByActivityKey(Integer activityId);
+
+    void deleteActivityUser(Integer userActivityId);
 
     /**用户展览表*/
     UserExhibition selectByUEKey(Integer userId, Integer activityId);

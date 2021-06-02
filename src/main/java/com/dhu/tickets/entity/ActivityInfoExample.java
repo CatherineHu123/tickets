@@ -375,63 +375,63 @@ public class ActivityInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andDefaultNumbersIsNull() {
-            addCriterion("default_numbers is null");
+        public Criteria andMaxNumbersIsNull() {
+            addCriterion("max_numbers is null");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultNumbersIsNotNull() {
-            addCriterion("default_numbers is not null");
+        public Criteria andMaxNumbersIsNotNull() {
+            addCriterion("max_numbers is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultNumbersEqualTo(Integer value) {
-            addCriterion("default_numbers =", value, "defaultNumbers");
+        public Criteria andMaxNumbersEqualTo(Integer value) {
+            addCriterion("max_numbers =", value, "maxNumbers");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultNumbersNotEqualTo(Integer value) {
-            addCriterion("default_numbers <>", value, "defaultNumbers");
+        public Criteria andMaxNumbersNotEqualTo(Integer value) {
+            addCriterion("max_numbers <>", value, "maxNumbers");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultNumbersGreaterThan(Integer value) {
-            addCriterion("default_numbers >", value, "defaultNumbers");
+        public Criteria andMaxNumbersGreaterThan(Integer value) {
+            addCriterion("max_numbers >", value, "maxNumbers");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultNumbersGreaterThanOrEqualTo(Integer value) {
-            addCriterion("default_numbers >=", value, "defaultNumbers");
+        public Criteria andMaxNumbersGreaterThanOrEqualTo(Integer value) {
+            addCriterion("max_numbers >=", value, "maxNumbers");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultNumbersLessThan(Integer value) {
-            addCriterion("default_numbers <", value, "defaultNumbers");
+        public Criteria andMaxNumbersLessThan(Integer value) {
+            addCriterion("max_numbers <", value, "maxNumbers");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultNumbersLessThanOrEqualTo(Integer value) {
-            addCriterion("default_numbers <=", value, "defaultNumbers");
+        public Criteria andMaxNumbersLessThanOrEqualTo(Integer value) {
+            addCriterion("max_numbers <=", value, "maxNumbers");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultNumbersIn(List<Integer> values) {
-            addCriterion("default_numbers in", values, "defaultNumbers");
+        public Criteria andMaxNumbersIn(List<Integer> values) {
+            addCriterion("max_numbers in", values, "maxNumbers");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultNumbersNotIn(List<Integer> values) {
-            addCriterion("default_numbers not in", values, "defaultNumbers");
+        public Criteria andMaxNumbersNotIn(List<Integer> values) {
+            addCriterion("max_numbers not in", values, "maxNumbers");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultNumbersBetween(Integer value1, Integer value2) {
-            addCriterion("default_numbers between", value1, value2, "defaultNumbers");
+        public Criteria andMaxNumbersBetween(Integer value1, Integer value2) {
+            addCriterion("max_numbers between", value1, value2, "maxNumbers");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultNumbersNotBetween(Integer value1, Integer value2) {
-            addCriterion("default_numbers not between", value1, value2, "defaultNumbers");
+        public Criteria andMaxNumbersNotBetween(Integer value1, Integer value2) {
+            addCriterion("max_numbers not between", value1, value2, "maxNumbers");
             return (Criteria) this;
         }
 
@@ -745,63 +745,63 @@ public class ActivityInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andIfVoteIsNull() {
-            addCriterion("if_vote is null");
+        public Criteria andIfLimitIsNull() {
+            addCriterion("if_limit is null");
             return (Criteria) this;
         }
 
-        public Criteria andIfVoteIsNotNull() {
-            addCriterion("if_vote is not null");
+        public Criteria andIfLimitIsNotNull() {
+            addCriterion("if_limit is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIfVoteEqualTo(Integer value) {
-            addCriterion("if_vote =", value, "ifVote");
+        public Criteria andIfLimitEqualTo(Integer value) {
+            addCriterion("if_limit =", value, "ifLimit");
             return (Criteria) this;
         }
 
-        public Criteria andIfVoteNotEqualTo(Integer value) {
-            addCriterion("if_vote <>", value, "ifVote");
+        public Criteria andIfLimitNotEqualTo(Integer value) {
+            addCriterion("if_limit <>", value, "ifLimit");
             return (Criteria) this;
         }
 
-        public Criteria andIfVoteGreaterThan(Integer value) {
-            addCriterion("if_vote >", value, "ifVote");
+        public Criteria andIfLimitGreaterThan(Integer value) {
+            addCriterion("if_limit >", value, "ifLimit");
             return (Criteria) this;
         }
 
-        public Criteria andIfVoteGreaterThanOrEqualTo(Integer value) {
-            addCriterion("if_vote >=", value, "ifVote");
+        public Criteria andIfLimitGreaterThanOrEqualTo(Integer value) {
+            addCriterion("if_limit >=", value, "ifLimit");
             return (Criteria) this;
         }
 
-        public Criteria andIfVoteLessThan(Integer value) {
-            addCriterion("if_vote <", value, "ifVote");
+        public Criteria andIfLimitLessThan(Integer value) {
+            addCriterion("if_limit <", value, "ifLimit");
             return (Criteria) this;
         }
 
-        public Criteria andIfVoteLessThanOrEqualTo(Integer value) {
-            addCriterion("if_vote <=", value, "ifVote");
+        public Criteria andIfLimitLessThanOrEqualTo(Integer value) {
+            addCriterion("if_limit <=", value, "ifLimit");
             return (Criteria) this;
         }
 
-        public Criteria andIfVoteIn(List<Integer> values) {
-            addCriterion("if_vote in", values, "ifVote");
+        public Criteria andIfLimitIn(List<Integer> values) {
+            addCriterion("if_limit in", values, "ifLimit");
             return (Criteria) this;
         }
 
-        public Criteria andIfVoteNotIn(List<Integer> values) {
-            addCriterion("if_vote not in", values, "ifVote");
+        public Criteria andIfLimitNotIn(List<Integer> values) {
+            addCriterion("if_limit not in", values, "ifLimit");
             return (Criteria) this;
         }
 
-        public Criteria andIfVoteBetween(Integer value1, Integer value2) {
-            addCriterion("if_vote between", value1, value2, "ifVote");
+        public Criteria andIfLimitBetween(Integer value1, Integer value2) {
+            addCriterion("if_limit between", value1, value2, "ifLimit");
             return (Criteria) this;
         }
 
-        public Criteria andIfVoteNotBetween(Integer value1, Integer value2) {
-            addCriterion("if_vote not between", value1, value2, "ifVote");
+        public Criteria andIfLimitNotBetween(Integer value1, Integer value2) {
+            addCriterion("if_limit not between", value1, value2, "ifLimit");
             return (Criteria) this;
         }
 

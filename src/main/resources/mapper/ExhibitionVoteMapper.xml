@@ -318,7 +318,7 @@
     </set>
     where exhibition_vote_id = #{exhibitionVoteId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.dhu.tickets.entity.ExhibitionVote">
+  <update id="updateExhibition" parameterType="com.dhu.tickets.entity.ExhibitionVote">
     update exhibition_vote
     set exhibition_name = #{exhibitionName,jdbcType=VARCHAR},
       exhibition_text = #{exhibitionText,jdbcType=VARCHAR},
