@@ -36,4 +36,6 @@ public interface UserActivityMapper {
     List<UserActivity> selectAByUserKey(Integer userId);
 
     List<UserActivity> selectUByActivityKey(Integer activityId);
+
+    int deleteByUserActivity(Integer userId, Integer activityId);
 }

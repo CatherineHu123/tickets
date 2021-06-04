@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class UserInfo {
@@ -18,12 +21,10 @@ public class UserInfo {
 
     private Integer ifDelete;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonSerialize(using = DateToLongSerializer.class)
     private Date createDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonSerialize(using = DateToLongSerializer.class)
     private Date updateDate;
 
     private String userPassword;
@@ -72,16 +73,34 @@ public class UserInfo {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreateDate(String createDate) {
+        if(createDate.contains("-")){
+            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                this.createDate = sdf.parse(createDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else{
+            this.createDate = new Date(Long.parseLong(createDate));
+        }
     }
 
     public Date getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
+    public void setUpdateDate(String updateDate) {
+        if(updateDate.contains("-")){
+            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                this.updateDate = sdf.parse(updateDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else{
+            this.updateDate = new Date(Long.parseLong(updateDate));
+        }
     }
 
     public String getUserPassword() {

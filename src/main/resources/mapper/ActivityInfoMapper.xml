@@ -137,14 +137,14 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyProperty="activityId" parameterType="com.dhu.tickets.entity.ActivityInfo" useGeneratedKeys="true">
-    insert into activity_info (activity_id, activity_name, activity_location, 
+  <insert id="insert" keyProperty="activityId" parameterType="com.dhu.tickets.entity.ActivityInfo"  useGeneratedKeys="true">
+    insert into activity_info (activity_name, activity_location,
       activity_introduction, max_numbers, activity_img, 
       now_numbers, activity_status, start_time, 
       end_time, if_limit, assoc_id, 
       if_delete, create_date, update_date
       )
-    values (#{activityId,jdbcType=INTEGER}, #{activityName,jdbcType=VARCHAR}, #{activityLocation,jdbcType=VARCHAR}, 
+    values (#{activityName,jdbcType=VARCHAR}, #{activityLocation,jdbcType=VARCHAR},
       #{activityIntroduction,jdbcType=VARCHAR}, #{maxNumbers,jdbcType=INTEGER}, #{activityImg,jdbcType=VARCHAR}, 
       #{nowNumbers,jdbcType=INTEGER}, #{activityStatus,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
       #{endTime,jdbcType=TIMESTAMP}, #{ifLimit,jdbcType=INTEGER}, #{assocId,jdbcType=INTEGER}, 

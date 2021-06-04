@@ -1,8 +1,13 @@
 package com.dhu.tickets.entity;
 
+import com.dhu.tickets.DateToLongSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ExhibitionVote {
@@ -18,20 +23,16 @@ public class ExhibitionVote {
 
     private Integer ifDelete;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonSerialize(using = DateToLongSerializer.class)
     private Date createDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonSerialize(using = DateToLongSerializer.class)
     private Date updateDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonSerialize(using = DateToLongSerializer.class)
     private Date startData;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonSerialize(using = DateToLongSerializer.class)
     private Date endData;
 
     private String exhibitionPlace;
@@ -90,32 +91,68 @@ public class ExhibitionVote {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreateDate(String createDate) {
+        if(createDate.contains("-")){
+            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                this.createDate = sdf.parse(createDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else{
+            this.createDate = new Date(Long.parseLong(createDate));
+        }
     }
 
     public Date getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
+    public void setUpdateDate(String updateDate) {
+        if(updateDate.contains("-")){
+            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                this.updateDate = sdf.parse(updateDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else{
+            this.updateDate = new Date(Long.parseLong(updateDate));
+        }
     }
 
     public Date getStartData() {
         return startData;
     }
 
-    public void setStartData(Date startData) {
-        this.startData = startData;
+    public void setStartData(String startData) {
+        if(startData.contains("-")){
+            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                this.startData = sdf.parse(startData);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else{
+            this.startData = new Date(Long.parseLong(startData));
+        }
     }
 
     public Date getEndData() {
         return endData;
     }
 
-    public void setEndData(Date endData) {
-        this.endData = endData;
+    public void setEndData(String endData) {
+        if(endData.contains("-")){
+            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                this.endData = sdf.parse(endData);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else{
+            this.endData = new Date(Long.parseLong(endData));
+        }
     }
 
     public String getExhibitionPlace() {

@@ -86,12 +86,18 @@ public interface TestService {
 
     List<UserInfo> selectUByActivityKey(Integer activityId);
 
-    void deleteActivityUser(Integer userActivityId);
+    void deleteByUserActivity(Integer userId, Integer activityId);
+
+    void addUserActivity(UserActivity userActivity);
 
     /**用户展览表*/
     UserExhibition selectByUEKey(Integer userId, Integer activityId);
 
     List<ExhibitionVote> selectEByUserKey(Integer userId);
+
+    void addUserExhibition(UserExhibition userExhibition);
+
+    void deleteUserExhibition(Integer userId, Integer exhibitionId);
 
     /**管理员表**/
     String adminLogin(String name,String passWord);

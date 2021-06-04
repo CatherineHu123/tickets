@@ -11,8 +11,6 @@ import java.util.Date;
 public class DateToLongSerializer extends JsonSerializer<Date> {
     @Override
     public void serialize(Date date, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-        System.out.println("***************s");
-        System.out.println(date.getTime());
-        gen.writeNumber(date.getTime() / 1000);
+        gen.writeNumber(date.getTime());
     }
 }

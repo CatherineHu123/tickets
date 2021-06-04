@@ -112,11 +112,15 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.dhu.tickets.entity.UserExhibition">
-    insert into user_exhibition (user_exhibit_id, user_id, exhibit_id, 
+  <delete id="deleteUserExhibition" parameterType="com.dhu.tickets.entity.UserExhibitionExample">
+    delete from user_exhibition
+    where user_id = #{userId,jdbcType=INTEGER} and exhibit_id = #{exhibitId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dhu.tickets.entity.UserExhibition" keyProperty="userExhibitId" useGeneratedKeys="true">
+    insert into user_exhibition (user_id, exhibit_id,
       if_delete, create_date, update_date
       )
-    values (#{userExhibitId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{exhibitId,jdbcType=INTEGER}, 
+    values (#{userId,jdbcType=INTEGER}, #{exhibitId,jdbcType=INTEGER},
       #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=VARCHAR}, #{updateDate,jdbcType=VARCHAR}
       )
   </insert>

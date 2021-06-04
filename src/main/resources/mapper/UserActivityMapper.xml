@@ -112,17 +112,21 @@
     delete from user_activity
     where user_activity_id = #{userActivityId,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByUserActivity" parameterType="java.lang.Integer">
+    delete from user_activity
+    where user_id = #{userId,jdbcType=INTEGER} and activity_id = #{activityId,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="com.dhu.tickets.entity.UserActivityExample">
     delete from user_activity
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.dhu.tickets.entity.UserActivity">
-    insert into user_activity (user_activity_id, user_id, activity_id, 
+  <insert id="insert" parameterType="com.dhu.tickets.entity.UserActivity" keyProperty="userActivityId" useGeneratedKeys="true">
+    insert into user_activity (user_id, activity_id,
       if_delete, create_date, update_date
       )
-    values (#{userActivityId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{activityId,jdbcType=INTEGER}, 
+    values (#{userId,jdbcType=INTEGER}, #{activityId,jdbcType=INTEGER},
       #{ifDelete,jdbcType=INTEGER}, #{createDate,jdbcType=VARCHAR}, #{updateDate,jdbcType=VARCHAR}
       )
   </insert>

@@ -53,6 +53,61 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void updateActivity(ActivityInfo activityInfo){
+        ActivityInfo activity = activityInfoMapper.selectByPrimaryKey(activityInfo.getActivityId());
+        if(activityInfo.getActivityName() == null){
+            activityInfo.setActivityName(activity.getActivityName());
+        }
+        if(activityInfo.getActivityLocation() == null){
+            activityInfo.setActivityLocation(activity.getActivityLocation());
+        }
+        if(activityInfo.getActivityIntroduction() == null){
+            activityInfo.setActivityIntroduction(activity.getActivityIntroduction());
+        }
+        if(activityInfo.getMaxNumbers() == null){
+            activityInfo.setMaxNumbers(activity.getMaxNumbers());
+        }
+        if(activityInfo.getActivityImg() == null){
+            activityInfo.setActivityImg(activity.getActivityImg());
+        }
+        if(activityInfo.getNowNumbers() == null){
+            activityInfo.setNowNumbers(activity.getNowNumbers());
+        }
+        if(activityInfo.getActivityStatus() == null){
+            activityInfo.setActivityStatus(activity.getActivityStatus());
+        }
+        if(activityInfo.getStartTime() == null){
+            Date date = activity.getStartTime();
+            if(date != null){
+                activityInfo.setStartTime(String.valueOf(date.getTime()));
+            }
+        }
+        if(activityInfo.getEndTime() == null){
+            Date date = activity.getEndTime();
+            if(date != null){
+                activityInfo.setEndTime(String.valueOf(date.getTime()));
+            }
+        }
+        if(activityInfo.getIfLimit() == null){
+            activityInfo.setIfLimit(activity.getIfLimit());
+        }
+        if(activityInfo.getAssocId() == null){
+            activityInfo.setAssocId(activity.getAssocId());
+        }
+        if(activityInfo.getIfDelete() == null){
+            activityInfo.setIfDelete(activity.getIfDelete());
+        }
+        if(activityInfo.getCreateDate() == null){
+            Date date = activity.getCreateDate();
+            if(date != null){
+                activityInfo.setCreateDate(String.valueOf(date.getTime()));
+            }
+        }
+        if(activityInfo.getUpdateDate() == null){
+            Date date = activity.getUpdateDate();
+            if(date != null){
+                activityInfo.setUpdateDate(String.valueOf(date.getTime()));
+            }
+        }
         activityInfoMapper.updateByPrimaryKey(activityInfo);
     }
 
@@ -99,6 +154,52 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void updateExhibition(ExhibitionVote exhibitionVote){
+        ExhibitionVote vote = exhibitionVoteMapper.selectByPrimaryKey(exhibitionVote.getExhibitionVoteId());
+        if(exhibitionVote.getExhibitionName() == null){
+            exhibitionVote.setExhibitionName(vote.getExhibitionName());
+        }
+        if(exhibitionVote.getExhibitionText() == null){
+            exhibitionVote.setExhibitionText(vote.getExhibitionText());
+        }
+        if(exhibitionVote.getExhibitionImg() == null){
+            exhibitionVote.setExhibitionImg(vote.getExhibitionImg());
+        }
+        if(exhibitionVote.getVoteNumber() == null){
+            exhibitionVote.setVoteNumber(vote.getVoteNumber());
+        }
+        if(exhibitionVote.getIfDelete() == null){
+            exhibitionVote.setIfDelete(vote.getIfDelete());
+        }
+        if(exhibitionVote.getCreateDate() == null){
+            Date date = vote.getCreateDate();
+            if(date != null){
+                exhibitionVote.setCreateDate(String.valueOf(date.getTime()));
+            }
+        }
+        if(exhibitionVote.getUpdateDate() == null){
+            Date date = vote.getUpdateDate();
+            if(date != null){
+                exhibitionVote.setUpdateDate(String.valueOf(date.getTime()));
+            }
+        }
+        if(exhibitionVote.getStartData() == null){
+            Date date = vote.getStartData();
+            if(date != null){
+                exhibitionVote.setStartData(String.valueOf(date.getTime()));
+            }
+        }
+        if(exhibitionVote.getEndData() == null){
+            Date date = vote.getEndData();
+            if(date != null){
+                exhibitionVote.setEndData(String.valueOf(date.getTime()));
+            }
+        }
+        if(exhibitionVote.getExhibitionPlace() == null){
+            exhibitionVote.setExhibitionPlace(vote.getExhibitionPlace());
+        }
+        if(exhibitionVote.getExhibitionStatus() == null){
+            exhibitionVote.setExhibitionStatus(vote.getExhibitionStatus());
+        }
         exhibitionVoteMapper.updateExhibition(exhibitionVote);
     }
 
@@ -133,6 +234,34 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void updateAssociation(AssociationInfo associationInfo){
+        AssociationInfo association = associationInfoMapper.selectByPrimaryKey(associationInfo.getAssocId());
+        if(associationInfo.getAssocText() == null){
+            associationInfo.setAssocText(association.getAssocText());
+        }
+        if(associationInfo.getAssocImg() == null){
+            associationInfo.setAssocImg(association.getAssocImg());
+        }
+        if(associationInfo.getAssocContact() == null){
+            associationInfo.setAssocContact(association.getAssocContact());
+        }
+        if(associationInfo.getIfDelete() == null){
+            associationInfo.setIfDelete(association.getIfDelete());
+        }
+        if(associationInfo.getCreateDate() == null){
+            Date date = association.getCreateDate();
+            if(date != null){
+                associationInfo.setCreateDate(String.valueOf(date.getTime()));
+            }
+        }
+        if(associationInfo.getUpdateDate() == null){
+            Date date = association.getUpdateDate();
+            if(date != null){
+                associationInfo.setUpdateDate(String.valueOf(date.getTime()));
+            }
+        }
+        if(associationInfo.getActivityId() == null){
+            associationInfo.setActivityId(association.getActivityId());
+        }
         associationInfoMapper.updateByPrimaryKey(associationInfo);
     }
 
@@ -207,9 +336,18 @@ public class TestServiceImpl implements TestService {
             userInfo.setWxToken(user.getWxToken());
         if(userInfo.getIfDelete() == null)
             userInfo.setIfDelete(user.getIfDelete());
-        if(userInfo.getCreateDate() == null)
-            userInfo.setCreateDate(user.getCreateDate());
-        userInfo.setUpdateDate(new Date());
+        if(userInfo.getCreateDate() == null){
+            Date date = user.getCreateDate();
+            if(date != null){
+                userInfo.setCreateDate(String.valueOf(date.getTime()));
+            }
+        }
+        if(userInfo.getUpdateDate() == null){
+            Date date = user.getUpdateDate();
+            if(date != null){
+                userInfo.setUpdateDate(String.valueOf(date.getTime()));
+            }
+        }
         if(userInfo.getUserPassword() == null)
             userInfo.setUserPassword(user.getUserPassword());
         userInfoMapper.updateUserInfo(userInfo);
@@ -233,6 +371,31 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void updateAssociationMember(AssociationMember associationMember){
+        AssociationMember member = associationMemberMapper.selectByPrimaryKey(associationMember.getMemberId());
+        if(associationMember.getMemberTitle() == null){
+            associationMember.setMemberTitle(member.getMemberTitle());
+        }
+        if(associationMember.getUserId() == null){
+            associationMember.setUserId(member.getUserId());
+        }
+        if(associationMember.getAssocId() == null){
+            associationMember.setAssocId(member.getAssocId());
+        }
+        if(associationMember.getIfDelete() == null){
+            associationMember.setIfDelete(member.getIfDelete());
+        }
+        if(associationMember.getCreateDate() == null){
+            Date date = member.getCreateDate();
+            if(date != null){
+                associationMember.setCreateDate(String.valueOf(date.getTime()));
+            }
+        }
+        if(associationMember.getUpdateDate() == null){
+            Date date = member.getUpdateDate();
+            if(date != null){
+                associationMember.setUpdateDate(String.valueOf(date.getTime()));
+            }
+        }
         associationMemberMapper.updateByPrimaryKey(associationMember);
     }
 
@@ -289,8 +452,13 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public void deleteActivityUser(Integer userActivityId){
-        userActivityMapper.deleteByPrimaryKey(userActivityId);
+    public void deleteByUserActivity(Integer userId, Integer activityId){
+        userActivityMapper.deleteByUserActivity(userId, activityId);
+    }
+
+    @Override
+    public void addUserActivity(UserActivity userActivity){
+        userActivityMapper.insert(userActivity);
     }
 
     /**用户展览表*/
@@ -309,6 +477,16 @@ public class TestServiceImpl implements TestService {
             exhibitionVotes.add(exhibitionVote);
         }
         return exhibitionVotes;
+    }
+
+    @Override
+    public void addUserExhibition(UserExhibition userExhibition){
+        userExhibitionMapper.insert(userExhibition);
+    }
+
+    @Override
+    public void deleteUserExhibition(Integer userId, Integer exhibitionId){
+        userExhibitionMapper.deleteUserExhibition(userId, exhibitionId);
     }
 
     /**管理员表**/

@@ -32,4 +32,6 @@ public interface UserExhibitionMapper {
     UserExhibition selectByUEKey(Integer userId, Integer exhibitId);
 
     List<UserExhibition> selectEByUserKey(Integer userId);
+
+    int deleteUserExhibition(Integer userId, Integer exhibitionId);
 }

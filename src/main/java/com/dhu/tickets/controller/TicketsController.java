@@ -284,10 +284,17 @@ public class TicketsController {
         return WrapMapper.ok(userInfos);
     }
 
-    @PostMapping("/deleteActivityUser")
-    @ApiOperation(notes = "删除用户所参加的活动", value = "删除用户所参加的活动")
-    public R deleteActivityUser(Integer userActivityId){
-        testService.deleteActivityUser(userActivityId);
+    @PostMapping("/deleteByUserActivity")
+    @ApiOperation(notes = "用户取消参加活动", value = "用户取消参加活动")
+    public R deleteByUserActivity(Integer userId, Integer activityId){
+        testService.deleteByUserActivity(userId, activityId);
+        return R.suc();
+    }
+
+    @PostMapping("/addUserActivity")
+    @ApiOperation(notes = "用户参加活动", value = "用户参加活动")
+    public R addUserActivity(UserActivity userActivity){
+        testService.addUserActivity(userActivity);
         return R.suc();
     }
 
@@ -304,6 +311,20 @@ public class TicketsController {
     public Wrapper selectEByUserKey(Integer userId){
         List<ExhibitionVote> exhibitionVotes = testService.selectEByUserKey(userId);
         return WrapMapper.ok(exhibitionVotes);
+    }
+
+    @PostMapping("/addUserExhibition")
+    @ApiOperation(notes = "用户参加展览", value = "用户参加展览")
+    public R addUserExhibition(UserExhibition userExhibition){
+        testService.addUserExhibition(userExhibition);
+        return R.suc();
+    }
+
+    @PostMapping("/deleteUserExhibition")
+    @ApiOperation(notes = "用户取消参加展览", value = "用户取消参加展览")
+    public R deleteUserExhibition(Integer userId, Integer exhibitionId){
+        testService.deleteUserExhibition(userId, exhibitionId);
+        return R.suc();
     }
 
     /**管理员**/
