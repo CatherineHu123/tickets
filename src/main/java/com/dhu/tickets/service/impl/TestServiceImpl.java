@@ -4,7 +4,6 @@ import com.dhu.tickets.common.TokenUtil;
 import com.dhu.tickets.entity.*;
 import com.dhu.tickets.mapper.*;
 import com.dhu.tickets.service.TestService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

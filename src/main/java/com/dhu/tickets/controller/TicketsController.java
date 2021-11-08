@@ -169,15 +169,18 @@ public class TicketsController {
     /**用户*/
     @PostMapping("/userLogin")
     @ApiOperation(notes = "用户登录", value = "用户登录")
-    public Wrapper usrLogin(String userName, String passWord){
+    public Wrapper usrLogin(@RequestParam("username") String userName, @RequestParam("password")String passWord){
         String token= testService.userLogin(userName, passWord);
         if (StringUtils.isBlank(token)){
-            return WrapMapper.ok(new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
+            return WrapMapper.error("HttpStatus.UNAUTHORIZED");
         }
         UserInfo userInfo = testService.selectByUserName(userName);
+        if (!passWord.equals(userInfo.getUserPassword())){
+            return WrapMapper.error("用户名、密码不对");
+        }
         userInfo.setWxToken(token);
         testService.updateUserInfo(userInfo);
-        return WrapMapper.ok(token);
+        return WrapMapper.ok(userInfo);
     }
 
     @PostMapping("/userUpdate")
