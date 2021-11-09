@@ -1,5 +1,6 @@
 package com.dhu.tickets.service;
 
+import com.dhu.tickets.common.Wrapper;
 import com.dhu.tickets.entity.*;
 
 import java.util.List;
@@ -111,4 +112,16 @@ public interface TestService {
     AdminInfo selectByAdminName(String adminName);
 
     AdminInfo selectByAdminPhone(String adminPhone);
+
+    int getMaxInActivity(Integer activityId);
+
+    int getNowInActivity(Integer activityId);
+
+    List<UserActivity> getUAByUidAndAid(Integer activityId, Integer userId);
+
+    void addNowInAct(Integer aid);
+
+    List<UserInfo> findUserByOpenid(String openid);
+
+    void insert(UserInfo userInfo);
 }

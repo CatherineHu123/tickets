@@ -5,8 +5,10 @@ import com.dhu.tickets.entity.ActivityInfoExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface ActivityInfoMapper {
+
     int countByExample(ActivityInfoExample example);
 
     int deleteByExample(ActivityInfoExample example);
@@ -36,4 +38,12 @@ public interface ActivityInfoMapper {
     List<ActivityInfo> getActivityByAss(Integer assocId);
 
     List<ActivityInfo> getActivityByStaVote(Integer activityStatus, Integer ifLimit);
+
+    Integer getMaxInActivity(@Param("id") Integer id);
+
+    @Select("select now_numbers from activity_info where activity_id = #{id}")
+    Integer getNowInActivity(@Param("id")Integer id);
+
+    @Update("update activity_info set now_numbers = now_numbers+1 where activity_id = #{id}")
+    int addNowInAct(@Param("id")Integer id);
 }

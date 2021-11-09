@@ -541,4 +541,34 @@ public class TestServiceImpl implements TestService {
         AdminInfo adminInfo = adminInfoMapper.selectByAdminPhone(adminPhone);
         return adminInfo;
     }
+
+    @Override
+    public int getMaxInActivity(Integer activityId) {
+        return activityInfoMapper.getMaxInActivity(activityId);
+    }
+
+    @Override
+    public int getNowInActivity(Integer activityId) {
+        return activityInfoMapper.getNowInActivity(activityId);
+    }
+
+    @Override
+    public List<UserActivity> getUAByUidAndAid(Integer activityId, Integer userId) {
+        return null;
+    }
+
+    @Override
+    public void addNowInAct(Integer aid) {
+        activityInfoMapper.addNowInAct(aid);
+    }
+
+    @Override
+    public List<UserInfo> findUserByOpenid(String openid) {
+        return userInfoMapper.findUserByToken(openid);
+    }
+
+    @Override
+    public void insert(UserInfo userInfo) {
+        userInfoMapper.insert(userInfo);
+    }
 }

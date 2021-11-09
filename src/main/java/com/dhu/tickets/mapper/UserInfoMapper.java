@@ -4,6 +4,7 @@ import com.dhu.tickets.entity.UserInfo;
 import com.dhu.tickets.entity.UserInfoExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface UserInfoMapper {
     int countByExample(UserInfoExample example);
@@ -33,4 +34,6 @@ public interface UserInfoMapper {
     UserInfo selectByUserPhone(String userPhone);
 
     List<UserInfo> getAllUser();
+
+    List<UserInfo> findUserByToken(@Param("token") String token);
 }

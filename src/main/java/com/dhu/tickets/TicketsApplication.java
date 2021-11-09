@@ -1,6 +1,7 @@
 package com.dhu.tickets;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.amqp.core.Queue;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,11 @@ public class TicketsApplication {
     public static void main(String[] args) {
         SpringApplication.run(TicketsApplication.class, args);
 
+    }
+
+    @Bean
+    public Queue queue(){
+        return new Queue("goupiao");
     }
 
     @Configuration

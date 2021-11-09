@@ -97,6 +97,12 @@
     <include refid="Base_Column_List" />
     from user_info
   </select>
+  <select id="findUserByToken" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_info
+    where wx_token = #{token,jdbcType=VARCHAR}
+  </select>
   <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
