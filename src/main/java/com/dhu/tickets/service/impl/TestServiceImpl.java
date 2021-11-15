@@ -1,9 +1,12 @@
 package com.dhu.tickets.service.impl;
 
 import com.dhu.tickets.common.TokenUtil;
+import com.dhu.tickets.common.WrapMapper;
+import com.dhu.tickets.common.Wrapper;
 import com.dhu.tickets.entity.*;
 import com.dhu.tickets.mapper.*;
 import com.dhu.tickets.service.TestService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +41,9 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     AdminInfoMapper adminInfoMapper;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     /**活动*/
     @Override
@@ -570,5 +576,30 @@ public class TestServiceImpl implements TestService {
     @Override
     public void insert(UserInfo userInfo) {
         userInfoMapper.insert(userInfo);
+    }
+
+    @Override
+    public Wrapper signForActivity(Integer uid, Integer aid) {
+        UserActivity userActivity = new UserActivity();
+        userActivity.setActivityId(aid);
+        userActivity.setUserId(uid);
+        int left = activityInfoMapper.getMaxInActivity(aid) - activityInfoMapper.getNowInActivity(aid);
+        // 库存不足，返回
+        if (left <= 0) {
+            return WrapMapper.error("人数已满");
+        }
+        // 是否已经报名了
+        UserActivity tickets = userActivityMapper.selectByUAKey(uid, aid);
+        if (null != tickets){
+            return WrapMapper.error("已经报名了");
+        }
+        // 传给消息队列
+        rabbitTemplate.convertAndSend("goupiao",userActivity);
+        return WrapMapper.ok("报名成功");
+    }
+
+    @Override
+    public List<AssociationInfo> getAssocByName(String name) {
+        return associationInfoMapper.getAssocByName(name);
     }
 }

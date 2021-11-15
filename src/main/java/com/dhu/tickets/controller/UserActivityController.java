@@ -24,9 +24,6 @@ public class UserActivityController {
     @Autowired
     private TestService testService;
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
-
     /**用户活动表*/
     @GetMapping("/selectByUAKey")
     @ApiOperation(notes = "是否参加活动", value = "是否参加活动")
@@ -66,21 +63,20 @@ public class UserActivityController {
     @GetMapping("/signForActivity/{uid}/{aid}")
     @ApiOperation(value = "报名")
     public Wrapper signForActivity(@PathVariable(value = "uid") Integer uid, @PathVariable(value = "aid") Integer aid){
-        UserActivity userActivity = new UserActivity();
-        userActivity.setActivityId(aid);
-        userActivity.setUserId(uid);
-        int left = testService.getMaxInActivity(aid) - testService.getNowInActivity(aid);
-        // 库存不足，返回
-        if (left <= 0) {
-            return WrapMapper.error("人数已满");
-        }
-        // 是否已经报名了
-        UserActivity tickets = testService.selectByUAKey(uid, aid);
-        if (null != tickets){
-            return WrapMapper.error("已经报名了");
-        }
-        // 传给消息队列
-        rabbitTemplate.convertAndSend("goupiao",userActivity);
-        return WrapMapper.ok("报名成功");
+//        Thread thread1 = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                testService.signForActivity(4,27);
+//            }
+//        });
+//        Thread thread2 = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                testService.signForActivity(7,27);
+//            }
+//        });
+//        thread1.start();
+//        thread2.start();
+        return testService.signForActivity(uid, aid);
     }
 }

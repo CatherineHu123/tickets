@@ -4,6 +4,7 @@ import com.dhu.tickets.entity.AssociationInfo;
 import com.dhu.tickets.entity.AssociationInfoExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface AssociationInfoMapper {
     int countByExample(AssociationInfoExample example);
@@ -29,4 +30,7 @@ public interface AssociationInfoMapper {
     int updateByPrimaryKey(AssociationInfo record);
 
     List<AssociationInfo> getAllAssoc(Integer ifDelete);
+
+//    @Select("select * from association_info where assoc_text like concat('%',#{name},'%')")
+    List<AssociationInfo> getAssocByName(@Param("name") String name);
 }

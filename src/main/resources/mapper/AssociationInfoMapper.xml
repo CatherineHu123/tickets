@@ -93,6 +93,12 @@
     from association_info
     where assoc_id = #{assocId,jdbcType=INTEGER}
   </select>
+  <select id="getAssocByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from association_info
+    where assoc_text like concat('%',#{name},'%')
+  </select>
   <select id="getAllAssoc" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

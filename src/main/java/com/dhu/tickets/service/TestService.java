@@ -124,4 +124,8 @@ public interface TestService {
     List<UserInfo> findUserByOpenid(String openid);
 
     void insert(UserInfo userInfo);
+
+    Wrapper signForActivity(Integer uid, Integer aid);
+
+    List<AssociationInfo> getAssocByName(String name);
 }

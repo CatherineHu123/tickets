@@ -59,4 +59,14 @@ public class AssociationController {
         AssociationInfo associationInfos = testService.getAssocByActivity(activityId);
         return WrapMapper.ok(associationInfos);
     }
+
+    @ApiOperation(value = "根据名字查询协会")
+    @GetMapping("/associationByName/{name}")
+    public Wrapper getAssocByName(@PathVariable String name){
+        List<AssociationInfo> associationInfos = testService.getAssocByName(name);
+        if (associationInfos.size() == 0){
+            return WrapMapper.error("没有相关协会，请重新查询");
+        }
+        return WrapMapper.ok(associationInfos);
+    }
 }
