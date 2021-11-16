@@ -105,4 +105,10 @@ public class UserController {
         testService.insert(userInfo);
         return R.suc();
     }
+
+    @GetMapping("/getOpenId/{code}")
+    @ApiOperation(value = "获取openid")
+    public Wrapper getOpenId(@PathVariable String code){
+        return testService.getOpenId(code);
+    }
 }

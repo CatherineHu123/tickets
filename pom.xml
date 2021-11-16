@@ -31,11 +31,11 @@
             <version>2.11.1</version>
         </dependency>
 
-        <!--  easy poi 相关依赖  -->
+        <!--http requset-->
         <dependency>
-            <groupId>cn.afterturn</groupId>
-            <artifactId>easypoi-spring-boot-starter</artifactId>
-            <version>4.3.0</version>
+            <groupId>com.github.kevinsawicki</groupId>
+            <artifactId>http-request</artifactId>
+            <version>6.0</version>
         </dependency>
 
         <!-- rabbitmq 依赖 -->

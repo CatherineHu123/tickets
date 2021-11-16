@@ -128,4 +128,6 @@ public interface TestService {
     Wrapper signForActivity(Integer uid, Integer aid);
 
     List<AssociationInfo> getAssocByName(String name);
+
+    Wrapper getOpenId(String code);
 }

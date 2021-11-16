@@ -1,8 +1,13 @@
 package com.dhu.tickets.service.impl;
 
+
+import com.github.kevinsawicki.http.HttpRequest;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.dhu.tickets.common.TokenUtil;
 import com.dhu.tickets.common.WrapMapper;
 import com.dhu.tickets.common.Wrapper;
+import com.dhu.tickets.entity.WXConstant;
 import com.dhu.tickets.entity.*;
 import com.dhu.tickets.mapper.*;
 import com.dhu.tickets.service.TestService;
@@ -10,9 +15,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @Service
@@ -601,5 +604,19 @@ public class TestServiceImpl implements TestService {
     @Override
     public List<AssociationInfo> getAssocByName(String name) {
         return associationInfoMapper.getAssocByName(name);
+    }
+
+    @Override
+    public Wrapper getOpenId(String code) {
+        Map<String, String> map = new HashMap<>();
+        map.put("appid", WXConstant.APPID);
+        map.put("secret", WXConstant.SECRET);
+        map.put("js_code", code);
+        map.put("grant_type", "authorization_code");
+
+        String response = HttpRequest.get("https://api.weixin.qq.com/sns/jscode2session").form(map).body();
+        System.out.println("Response was: " + response);
+        JSONObject obj= JSON.parseObject(response);//将json字符串转换为json对
+        return WrapMapper.ok(obj);
     }
 }
