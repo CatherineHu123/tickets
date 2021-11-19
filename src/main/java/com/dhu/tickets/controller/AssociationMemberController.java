@@ -37,16 +37,16 @@ public class AssociationMemberController {
         testService.updateAssociationMember(associationMember);
     }
 
-    @GetMapping("/associationByUser")
+    @GetMapping("/associationByUser/{userId}")
     @ApiOperation(notes = "用户加入的协会", value = "用户加入的协会")
-    public Wrapper selectAInAssocM(Integer userId){
+    public Wrapper selectAInAssocM(@PathVariable Integer userId){
         List<AssociationInfo> associationInfos = testService.selectAInAssocM(userId);
         return WrapMapper.ok(associationInfos);
     }
 
-    @GetMapping("/userInAssociation")
+    @GetMapping("/userInAssociation/{assocId}")
     @ApiOperation(notes = "协会中的成员", value = "协会中的成员")
-    public Wrapper selectUInAssocM(Integer assocId){
+    public Wrapper selectUInAssocM(@PathVariable Integer assocId){
         List<UserInfo> userInfos = testService.selectUInAssocM(assocId);
         return WrapMapper.ok(userInfos);
     }

@@ -25,23 +25,23 @@ public class UserActivityController {
     private TestService testService;
 
     /**用户活动表*/
-    @GetMapping("/selectByUAKey")
+    @GetMapping("/selectByUAKey/{userId}/{activityId}")
     @ApiOperation(notes = "是否参加活动", value = "是否参加活动")
-    public Wrapper selectByUAKey(Integer userId, Integer activityId){
+    public Wrapper selectByUAKey(@PathVariable Integer userId, @PathVariable Integer activityId){
         UserActivity userActivity = testService.selectByUAKey(userId, activityId);
         return WrapMapper.ok(userActivity);
     }
 
-    @GetMapping("/selectAByUserKey")
+    @GetMapping("/selectAByUserKey/{userId}")
     @ApiOperation(notes = "用户参加的全部活动", value = "用户参加的全部活动")
-    public Wrapper selectAByUserKey(Integer userId){
+    public Wrapper selectAByUserKey(@PathVariable Integer userId){
         List<ActivityInfo> activityInfos = testService.selectAByUserKey(userId);
         return WrapMapper.ok(activityInfos);
     }
 
-    @GetMapping("/selectUByActivityKey")
+    @GetMapping("/selectUByActivityKey/{activityId}")
     @ApiOperation(notes = "活动所拥有的用户", value = "活动所拥有的用户")
-    public Wrapper selectUByActivityKey(Integer activityId){
+    public Wrapper selectUByActivityKey(@PathVariable Integer activityId){
         List<UserInfo> userInfos = testService.selectUByActivityKey(activityId);
         return WrapMapper.ok(userInfos);
     }
@@ -50,7 +50,10 @@ public class UserActivityController {
     @ApiOperation(notes = "用户取消参加活动", value = "用户取消参加活动")
     public R deleteByUserActivity(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "activityId") Integer activityId){
         testService.deleteByUserActivity(userId, activityId);
-        return R.suc();
+        if (testService.decNowInAct(activityId) == 1){
+            return R.suc();
+        }
+        return R.error();
     }
 
     @PostMapping("/addUserActivity")

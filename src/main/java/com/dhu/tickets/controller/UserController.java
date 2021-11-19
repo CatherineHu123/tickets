@@ -50,9 +50,9 @@ public class UserController {
         return R.suc();
     }
 
-    @GetMapping("/userDelete")
+    @GetMapping("/userDelete/{userId}")
     @ApiOperation(notes = "删除用户", value = "删除用户")
-    public R userDelete(Integer userId){
+    public R userDelete(@PathVariable Integer userId){
         testService.userDelete(userId);
         return R.suc();
     }
@@ -64,23 +64,23 @@ public class UserController {
         return WrapMapper.ok(userInfos);
     }
 
-    @GetMapping("/userInfoById")
+    @GetMapping("/userInfoById/{userId}")
     @ApiOperation(notes = "通过id获取用户信息", value = "通过id获取用户信息")
-    public Wrapper selectUByPrimaryKey(Integer userId){
+    public Wrapper selectUByPrimaryKey(@PathVariable Integer userId){
         UserInfo userInfo = testService.selectUByPrimaryKey(userId);
         return WrapMapper.ok(userInfo);
     }
 
-    @GetMapping("/userInfoByName")
+    @GetMapping("/userInfoByName/{userName}")
     @ApiOperation(notes = "通过名字获取用户信息", value = "通过名字获取用户信息")
-    public Wrapper selectByUserName(String userName){
+    public Wrapper selectByUserName(@PathVariable String userName){
         UserInfo userInfo = testService.selectByUserName(userName);
         return WrapMapper.ok(userInfo);
     }
 
-    @GetMapping("/userInfoByPhone")
+    @GetMapping("/userInfoByPhone/{userPhone}")
     @ApiOperation(notes = "通过手机号获取用户信息", value = "通过手机号获取用户信息")
-    public Wrapper selectByUserPhone(String userPhone){
+    public Wrapper selectByUserPhone(@PathVariable String userPhone){
         UserInfo userInfo = testService.selectByUserPhone(userPhone);
         return WrapMapper.ok(userInfo);
     }

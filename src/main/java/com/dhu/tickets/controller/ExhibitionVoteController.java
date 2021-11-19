@@ -25,9 +25,9 @@ public class ExhibitionVoteController {
         return R.suc();
     }
 
-    @GetMapping("/deleteExhibition")
+    @GetMapping("/deleteExhibition/{exhibitionVoteId}")
     @ApiOperation(notes = "删除展览（投票）", value = "删除展览（投票）")
-    public R deleteExhibition(Integer exhibitionVoteId){
+    public R deleteExhibition(@PathVariable Integer exhibitionVoteId){
         testService.deleteExhibition(exhibitionVoteId);
         return R.suc();
     }
@@ -39,9 +39,9 @@ public class ExhibitionVoteController {
         return R.suc();
     }
 
-    @GetMapping("/exhibitionByStatus")
+    @GetMapping("/exhibitionByStatus/{exhibitionStatus}")
     @ApiOperation(notes = "查询指定状态展览列表", value = "查询指定状态展览列表")
-    public Wrapper getExhibitionByStatus(Integer exhibitionStatus){
+    public Wrapper getExhibitionByStatus(@PathVariable Integer exhibitionStatus){
         List<ExhibitionVote> exhibitionVotes = testService.getExhibitionByStatus(exhibitionStatus);
         return WrapMapper.ok(exhibitionVotes);
     }
@@ -53,9 +53,9 @@ public class ExhibitionVoteController {
         return WrapMapper.ok(exhibitionVotes);
     }
 
-    @GetMapping("/exhibitionByPrimaryKey")
+    @GetMapping("/exhibitionByPrimaryKey/{exhibitionVoteId}")
     @ApiOperation(notes = "查询指定展览", value = "查询指定展览")
-    public Wrapper selectEByPrimaryKey(Integer exhibitionVoteId){
+    public Wrapper selectEByPrimaryKey(@PathVariable Integer exhibitionVoteId){
         ExhibitionVote exhibitionVote = testService.selectEByPrimaryKey(exhibitionVoteId);
         return WrapMapper.ok(exhibitionVote);
     }

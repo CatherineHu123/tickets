@@ -130,4 +130,6 @@ public interface TestService {
     List<AssociationInfo> getAssocByName(String name);
 
     Wrapper getOpenId(String code);
+
+    int decNowInAct(Integer activityId);
 }

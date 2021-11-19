@@ -14,6 +14,7 @@ import com.dhu.tickets.service.TestService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -51,6 +52,10 @@ public class TestServiceImpl implements TestService {
     /**活动*/
     @Override
     public void addActivityInfo(ActivityInfo activityInfo){
+        Integer nowNumbers = activityInfo.getNowNumbers();
+        if (null == nowNumbers){
+            activityInfo.setNowNumbers(0);
+        }
         activityInfoMapper.insert(activityInfo);
     }
 
@@ -617,6 +622,15 @@ public class TestServiceImpl implements TestService {
         String response = HttpRequest.get("https://api.weixin.qq.com/sns/jscode2session").form(map).body();
         System.out.println("Response was: " + response);
         JSONObject obj= JSON.parseObject(response);//将json字符串转换为json对
-        return WrapMapper.ok(obj);
+        String openid = obj.getString("openid");
+        if (!StringUtils.isEmpty(openid)){
+            return WrapMapper.ok(openid);
+        }
+        return WrapMapper.error(obj.getString("errmsg"));
+    }
+
+    @Override
+    public int decNowInAct(Integer activityId) {
+        return activityInfoMapper.decNowInAct(activityId);
     }
 }

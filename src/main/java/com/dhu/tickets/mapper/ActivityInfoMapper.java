@@ -46,4 +46,7 @@ public interface ActivityInfoMapper {
 
     @Update("update activity_info set now_numbers = now_numbers+1 where activity_id = #{id}")
     int addNowInAct(@Param("id")Integer id);
+
+    @Update("update activity_info set now_numbers = now_numbers-1 where activity_id = #{id}")
+    int decNowInAct(@Param("id") Integer id);
 }

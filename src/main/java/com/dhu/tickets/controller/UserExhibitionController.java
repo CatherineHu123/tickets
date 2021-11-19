@@ -19,16 +19,16 @@ public class UserExhibitionController {
     private TestService testService;
 
     /**用户展览表*/
-    @GetMapping("/selectByUEKey")
+    @GetMapping("/selectByUEKey/{userId}/{activityId}")
     @ApiOperation(notes = "是否参加展览", value = "是否参加展览")
-    public Wrapper selectByUEKey(Integer userId, Integer activityId){
+    public Wrapper selectByUEKey(@PathVariable Integer userId, @PathVariable Integer activityId){
         UserExhibition userExhibition = testService.selectByUEKey(userId, activityId);
         return WrapMapper.ok(userExhibition);
     }
 
-    @GetMapping("/selectEByUserKey")
+    @GetMapping("/selectEByUserKey/{userId}")
     @ApiOperation(notes = "用户参加的全部展览", value = "用户参加的全部展览")
-    public Wrapper selectEByUserKey(Integer userId){
+    public Wrapper selectEByUserKey(@PathVariable Integer userId){
         List<ExhibitionVote> exhibitionVotes = testService.selectEByUserKey(userId);
         return WrapMapper.ok(exhibitionVotes);
     }
@@ -40,9 +40,9 @@ public class UserExhibitionController {
         return R.suc();
     }
 
-    @GetMapping("/deleteUserExhibition")
+    @GetMapping("/deleteUserExhibition/{userId}/{exhibitionId}")
     @ApiOperation(notes = "用户取消参加展览", value = "用户取消参加展览")
-    public R deleteUserExhibition(Integer userId, Integer exhibitionId){
+    public R deleteUserExhibition(@PathVariable Integer userId, @PathVariable Integer exhibitionId){
         testService.deleteUserExhibition(userId, exhibitionId);
         return R.suc();
     }

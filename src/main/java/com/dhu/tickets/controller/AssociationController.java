@@ -25,9 +25,9 @@ public class AssociationController {
         return R.suc();
     }
 
-    @GetMapping("/deleteAssociation")
+    @GetMapping("/deleteAssociation/{assocId}")
     @ApiOperation(notes = "删除协会", value = "删除协会")
-    public R deleteAssociation(Integer assocId){
+    public R deleteAssociation(@PathVariable Integer assocId){
         testService.deleteAssociation(assocId);
         return R.suc();
     }
@@ -39,23 +39,23 @@ public class AssociationController {
         return R.suc();
     }
 
-    @GetMapping("/association")
+    @GetMapping("/association/{ifDelete}")
     @ApiOperation(notes = "协会列表", value = "协会列表")
-    public Wrapper getAllAssoc(Integer ifDelete){
+    public Wrapper getAllAssoc(@PathVariable Integer ifDelete){
         List<AssociationInfo> associationInfos = testService.getAllAssoc(ifDelete);
         return WrapMapper.ok(associationInfos);
     }
 
-    @GetMapping("/associationByPrimaryKey")
+    @GetMapping("/associationByPrimaryKey/{assocId}")
     @ApiOperation(notes = "查询指定协会", value = "查询指定协会")
-    public Wrapper selectAssByPrimaryKey(Integer assocId){
+    public Wrapper selectAssByPrimaryKey(@PathVariable Integer assocId){
         AssociationInfo associationInfo = testService.selectAssByPrimaryKey(assocId);
         return WrapMapper.ok(associationInfo);
     }
 
-    @GetMapping("/associationByActivity")
+    @GetMapping("/associationByActivity/{activityId}")
     @ApiOperation(notes = "根据活动查询协会", value = "根据活动查询协会")
-    public Wrapper getAssocByActivity(Integer activityId){
+    public Wrapper getAssocByActivity(@PathVariable Integer activityId){
         AssociationInfo associationInfos = testService.getAssocByActivity(activityId);
         return WrapMapper.ok(associationInfos);
     }
