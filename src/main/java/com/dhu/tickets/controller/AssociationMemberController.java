@@ -25,9 +25,9 @@ public class AssociationMemberController {
         testService.addAssociationMember(associationMember);
     }
 
-    @GetMapping("/deleteAssocMember/{memberId}")
+    @GetMapping("/deleteAssocMember")
     @ApiOperation(notes = "删除成员", value = "删除成员")
-    public void deleteAssociationMember(@PathVariable(value = "memberId") Integer memberId){
+    public void deleteAssociationMember(Integer memberId){
         testService.deleteAssociationMember(memberId);
     }
 
@@ -37,16 +37,16 @@ public class AssociationMemberController {
         testService.updateAssociationMember(associationMember);
     }
 
-    @GetMapping("/associationByUser/{userId}")
+    @GetMapping("/associationByUser")
     @ApiOperation(notes = "用户加入的协会", value = "用户加入的协会")
-    public Wrapper selectAInAssocM(@PathVariable Integer userId){
+    public Wrapper selectAInAssocM(Integer userId){
         List<AssociationInfo> associationInfos = testService.selectAInAssocM(userId);
         return WrapMapper.ok(associationInfos);
     }
 
-    @GetMapping("/userInAssociation/{assocId}")
+    @GetMapping("/userInAssociation")
     @ApiOperation(notes = "协会中的成员", value = "协会中的成员")
-    public Wrapper selectUInAssocM(@PathVariable Integer assocId){
+    public Wrapper selectUInAssocM(Integer assocId){
         List<UserInfo> userInfos = testService.selectUInAssocM(assocId);
         return WrapMapper.ok(userInfos);
     }

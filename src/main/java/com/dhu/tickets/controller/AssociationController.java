@@ -25,9 +25,9 @@ public class AssociationController {
         return R.suc();
     }
 
-    @GetMapping("/deleteAssociation/{assocId}")
+    @GetMapping("/deleteAssociation")
     @ApiOperation(notes = "删除协会", value = "删除协会")
-    public R deleteAssociation(@PathVariable Integer assocId){
+    public R deleteAssociation(Integer assocId){
         testService.deleteAssociation(assocId);
         return R.suc();
     }
@@ -39,30 +39,30 @@ public class AssociationController {
         return R.suc();
     }
 
-    @GetMapping("/association/{ifDelete}")
+    @GetMapping("/association")
     @ApiOperation(notes = "协会列表", value = "协会列表")
-    public Wrapper getAllAssoc(@PathVariable Integer ifDelete){
+    public Wrapper getAllAssoc(Integer ifDelete){
         List<AssociationInfo> associationInfos = testService.getAllAssoc(ifDelete);
         return WrapMapper.ok(associationInfos);
     }
 
-    @GetMapping("/associationByPrimaryKey/{assocId}")
+    @GetMapping("/associationByPrimaryKey")
     @ApiOperation(notes = "查询指定协会", value = "查询指定协会")
-    public Wrapper selectAssByPrimaryKey(@PathVariable Integer assocId){
+    public Wrapper selectAssByPrimaryKey(Integer assocId){
         AssociationInfo associationInfo = testService.selectAssByPrimaryKey(assocId);
         return WrapMapper.ok(associationInfo);
     }
 
-    @GetMapping("/associationByActivity/{activityId}")
+    @GetMapping("/associationByActivity")
     @ApiOperation(notes = "根据活动查询协会", value = "根据活动查询协会")
-    public Wrapper getAssocByActivity(@PathVariable Integer activityId){
+    public Wrapper getAssocByActivity(Integer activityId){
         AssociationInfo associationInfos = testService.getAssocByActivity(activityId);
         return WrapMapper.ok(associationInfos);
     }
 
     @ApiOperation(value = "根据名字查询协会")
-    @GetMapping("/associationByName/{name}")
-    public Wrapper getAssocByName(@PathVariable String name){
+    @GetMapping("/associationByName")
+    public Wrapper getAssocByName(String name){
         List<AssociationInfo> associationInfos = testService.getAssocByName(name);
         if (associationInfos.size() == 0){
             return WrapMapper.error("没有相关协会，请重新查询");

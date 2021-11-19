@@ -45,9 +45,9 @@ public class ActivityController {
         return R.suc();
     }
 
-    @GetMapping("/activityByStatus/{activitystatus}")
+    @GetMapping("/activityByStatus")
     @ApiOperation(notes = "查询指定状态活动列表", value = "查询指定状态活动列表")
-    public Wrapper getActivityByStatus(@PathVariable Integer activitystatus) {
+    public Wrapper getActivityByStatus(Integer activitystatus) {
         List<ActivityInfo> activityInfoList = testService.getActivityByStatus(activitystatus);
         return  WrapMapper.ok(activityInfoList);
     }
@@ -59,23 +59,23 @@ public class ActivityController {
         return  WrapMapper.ok(activityInfoList);
     }
 
-    @GetMapping("/activityByPrimaryKey/{activityId}")
+    @GetMapping("/activityByPrimaryKey")
     @ApiOperation(notes = "查询特定活动", value = "查询特定活动")
-    public Wrapper selectByPrimaryKey(@PathVariable Integer activityId){
+    public Wrapper selectByPrimaryKey(Integer activityId){
         ActivityInfo activityInfo = testService.selectByPrimaryKey(activityId);
         return WrapMapper.ok(activityInfo);
     }
 
-    @GetMapping("/activityInAssoc/{assocId}")
+    @GetMapping("/activityInAssoc")
     @ApiOperation(notes = "协会中的活动", value = "协会中的活动")
-    public Wrapper getActivityByAss(@PathVariable Integer assocId){
+    public Wrapper getActivityByAss(Integer assocId){
         List<ActivityInfo> activityInfoList = testService.getActivityByAss(assocId);
         return WrapMapper.ok(activityInfoList);
     }
 
-    @GetMapping("/activityByStaVote/{activityStatus}/{ifVote}")
+    @GetMapping("/activityByStaVote")
     @ApiOperation(notes = "根据状态和是否抢票查询活动列表", value = "根据状态和是否抢票查询活动列表")
-    public Wrapper getActivityByStaVote(@PathVariable Integer activityStatus, @PathVariable Integer ifVote){
+    public Wrapper getActivityByStaVote(Integer activityStatus, Integer ifVote){
         List<ActivityInfo> activityInfoList = testService.getActivityByStaVote(activityStatus, ifVote);
         return WrapMapper.ok(activityInfoList);
     }

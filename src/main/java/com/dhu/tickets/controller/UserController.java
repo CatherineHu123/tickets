@@ -50,9 +50,9 @@ public class UserController {
         return R.suc();
     }
 
-    @GetMapping("/userDelete/{userId}")
+    @GetMapping("/userDelete")
     @ApiOperation(notes = "删除用户", value = "删除用户")
-    public R userDelete(@PathVariable Integer userId){
+    public R userDelete(Integer userId){
         testService.userDelete(userId);
         return R.suc();
     }
@@ -71,24 +71,24 @@ public class UserController {
         return WrapMapper.ok(userInfo);
     }
 
-    @GetMapping("/userInfoByName/{userName}")
+    @GetMapping("/userInfoByName")
     @ApiOperation(notes = "通过名字获取用户信息", value = "通过名字获取用户信息")
-    public Wrapper selectByUserName(@PathVariable String userName){
+    public Wrapper selectByUserName(String userName){
         UserInfo userInfo = testService.selectByUserName(userName);
         return WrapMapper.ok(userInfo);
     }
 
-    @GetMapping("/userInfoByPhone/{userPhone}")
+    @GetMapping("/userInfoByPhone")
     @ApiOperation(notes = "通过手机号获取用户信息", value = "通过手机号获取用户信息")
-    public Wrapper selectByUserPhone(@PathVariable String userPhone){
+    public Wrapper selectByUserPhone(String userPhone){
         UserInfo userInfo = testService.selectByUserPhone(userPhone);
         return WrapMapper.ok(userInfo);
     }
 
     // 判断用户是否是第一次登陆
-    @GetMapping("/isFirstLogin/{openid}")
+    @GetMapping("/isFirstLogin")
     @ApiOperation(value = "判断是否是第一次登陆")
-    public Wrapper isFirstLogin(@PathVariable(value = "openid") String openid){
+    public Wrapper isFirstLogin(String openid){
         List<UserInfo> userByOpenid = testService.findUserByOpenid(openid);
         for (UserInfo user : userByOpenid) {
             System.out.println(user);
@@ -106,9 +106,9 @@ public class UserController {
         return R.suc();
     }
 
-    @GetMapping("/getOpenId/{code}")
+    @GetMapping("/getOpenId")
     @ApiOperation(value = "获取openid")
-    public Wrapper getOpenId(@PathVariable String code){
+    public Wrapper getOpenId(String code){
         return testService.getOpenId(code);
     }
 }

@@ -25,30 +25,30 @@ public class UserActivityController {
     private TestService testService;
 
     /**用户活动表*/
-    @GetMapping("/selectByUAKey/{userId}/{activityId}")
+    @GetMapping("/selectByUAKey")
     @ApiOperation(notes = "是否参加活动", value = "是否参加活动")
-    public Wrapper selectByUAKey(@PathVariable Integer userId, @PathVariable Integer activityId){
+    public Wrapper selectByUAKey(Integer userId, Integer activityId){
         UserActivity userActivity = testService.selectByUAKey(userId, activityId);
         return WrapMapper.ok(userActivity);
     }
 
-    @GetMapping("/selectAByUserKey/{userId}")
+    @GetMapping("/selectAByUserKey")
     @ApiOperation(notes = "用户参加的全部活动", value = "用户参加的全部活动")
-    public Wrapper selectAByUserKey(@PathVariable Integer userId){
+    public Wrapper selectAByUserKey(Integer userId){
         List<ActivityInfo> activityInfos = testService.selectAByUserKey(userId);
         return WrapMapper.ok(activityInfos);
     }
 
-    @GetMapping("/selectUByActivityKey/{activityId}")
+    @GetMapping("/selectUByActivityKey")
     @ApiOperation(notes = "活动所拥有的用户", value = "活动所拥有的用户")
-    public Wrapper selectUByActivityKey(@PathVariable Integer activityId){
+    public Wrapper selectUByActivityKey(Integer activityId){
         List<UserInfo> userInfos = testService.selectUByActivityKey(activityId);
         return WrapMapper.ok(userInfos);
     }
 
-    @GetMapping("/deleteByUserActivity/{userId}/{activityId}")
+    @GetMapping("/deleteByUserActivity")
     @ApiOperation(notes = "用户取消参加活动", value = "用户取消参加活动")
-    public R deleteByUserActivity(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "activityId") Integer activityId){
+    public R deleteByUserActivity(Integer userId, Integer activityId){
         testService.deleteByUserActivity(userId, activityId);
         if (testService.decNowInAct(activityId) == 1){
             return R.suc();
@@ -63,9 +63,9 @@ public class UserActivityController {
         return R.suc();
     }
 
-    @GetMapping("/signForActivity/{uid}/{aid}")
+    @GetMapping("/signForActivity")
     @ApiOperation(value = "报名")
-    public Wrapper signForActivity(@PathVariable(value = "uid") Integer uid, @PathVariable(value = "aid") Integer aid){
+    public Wrapper signForActivity(Integer uid, Integer aid){
 //        Thread thread1 = new Thread(new Runnable() {
 //            @Override
 //            public void run() {

@@ -47,30 +47,30 @@ public class AdminController {
         return R.suc();
     }
 
-    @GetMapping("/adminInfoById/{adminId}")
+    @GetMapping("/adminInfoById")
     @ApiOperation(notes = "通过id获取管理员信息", value = "通过id获取管理员信息")
-    public Wrapper selectAByPrimaryKey(@PathVariable Integer adminId){
+    public Wrapper selectAByPrimaryKey(Integer adminId){
         AdminInfo adminInfo = testService.selectAByPrimaryKey(adminId);
         return WrapMapper.ok(adminInfo);
     }
 
-    @GetMapping("/adminInfoByName/{adminName}")
+    @GetMapping("/adminInfoByName")
     @ApiOperation(notes = "通过名字获取管理员信息", value = "通过名字获取管理员信息")
-    public Wrapper selectByAdminName(@PathVariable String adminName){
+    public Wrapper selectByAdminName(String adminName){
         AdminInfo adminInfo = testService.selectByAdminName(adminName);
         return WrapMapper.ok(adminInfo);
     }
 
-    @GetMapping("/adminInfoByPhone/{adminPhone}")
+    @GetMapping("/adminInfoByPhone")
     @ApiOperation(notes = "通过手机号获取管理员信息", value = "通过手机号获取管理员信息")
-    public Wrapper selectByAdminPhone(@PathVariable String adminPhone){
+    public Wrapper selectByAdminPhone(String adminPhone){
         AdminInfo adminInfo = testService.selectByAdminPhone(adminPhone);
         return WrapMapper.ok(adminInfo);
     }
 
-    @DeleteMapping("/adminDelete/{adminId}")
+    @DeleteMapping("/adminDelete")
     @ApiOperation(notes = "删除管理员", value = "删除管理员")
-    public R adminDelete(@PathVariable Integer adminId){
+    public R adminDelete(Integer adminId){
         testService.adminDelete(adminId);
         return R.suc();
     }
