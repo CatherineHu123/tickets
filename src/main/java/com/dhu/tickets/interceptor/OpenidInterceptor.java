@@ -39,7 +39,9 @@ public class OpenidInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String openidStr = request.getHeader("openid");
-        System.out.println("header=====>"+openidStr);
+        String token = request.getHeader("token");
+        System.out.println("openidStr=====>"+openidStr);
+        System.out.println("token=====>"+token);
         byte[] openidCode = AESUtils.parseHexStr2Byte(openidStr);
         String openid = new String(AESUtils.decrypt(openidCode, "tickets"));
         logger.info("openidCode是=====>{}",openidCode);

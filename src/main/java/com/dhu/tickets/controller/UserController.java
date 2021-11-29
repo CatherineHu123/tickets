@@ -120,9 +120,9 @@ public class UserController {
      * 如存在 openid，则redis中已经存入userid
      * 若不存在，则跳转到userSign中，存入用户信息
      */
-    @GetMapping("/isFirstLogin")
+    @GetMapping("/isFirstLogin/openid={openid}")
     @ApiOperation(value = "判断是否是第一次登陆（作废）")
-    public Wrapper isFirstLogin(String openid) {
+    public Wrapper isFirstLogin(@PathVariable String openid) {
         System.out.println("firstLogin");
         List<UserInfo> userByOpenid = testService.isFirstLogin(openid);
         if (0 != userByOpenid.size()){
