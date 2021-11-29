@@ -80,6 +80,7 @@ public class UserActivityController {
 //        });
 //        thread1.start();
 //        thread2.start();
+        System.out.println(uid+" "+aid);
         return testService.signForActivity(uid, aid);
     }
 }

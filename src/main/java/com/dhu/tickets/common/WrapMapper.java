@@ -126,4 +126,8 @@ public class WrapMapper {
     public static <E> Wrapper<E> ok(E o) {
         return new Wrapper<>(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, o);
     }
+
+    public static <E> Wrapper<E> error(int code, String message) {
+        return wrap(2, StringUtils.isEmpty(message) ? Wrapper.ERROR_MESSAGE : message, null);
+    }
 }

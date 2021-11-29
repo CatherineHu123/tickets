@@ -1,16 +1,15 @@
 package com.dhu.tickets.service.impl;
 
-
-import com.github.kevinsawicki.http.HttpRequest;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.dhu.tickets.utils.AESUtils;
 import com.dhu.tickets.common.TokenUtil;
 import com.dhu.tickets.common.WrapMapper;
 import com.dhu.tickets.common.Wrapper;
-import com.dhu.tickets.entity.WXConstant;
 import com.dhu.tickets.entity.*;
 import com.dhu.tickets.mapper.*;
 import com.dhu.tickets.service.TestService;
+import com.github.kevinsawicki.http.HttpRequest;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -594,7 +593,7 @@ public class TestServiceImpl implements TestService {
         int left = activityInfoMapper.getMaxInActivity(aid) - activityInfoMapper.getNowInActivity(aid);
         // 库存不足，返回
         if (left <= 0) {
-            return WrapMapper.error("人数已满");
+            return WrapMapper.error(2,"人数已满");
         }
         // 是否已经报名了
         UserActivity tickets = userActivityMapper.selectByUAKey(uid, aid);
@@ -624,13 +623,38 @@ public class TestServiceImpl implements TestService {
         JSONObject obj= JSON.parseObject(response);//将json字符串转换为json对
         String openid = obj.getString("openid");
         if (!StringUtils.isEmpty(openid)){
-            return WrapMapper.ok(openid);
-        }
+            //return WrapMapper.ok(openid);
+            try {
+                System.out.println("加密前=====》"+openid);
+                byte[] encodeOpen = AESUtils.encrypt(openid, "tickets");
+                String res = AESUtils.parseByte2HexStr(encodeOpen);
+                System.out.println("加密后=====》"+res);
+                byte[] openidCode = AESUtils.parseHexStr2Byte(res);
+                String decode = new String(AESUtils.decrypt(openidCode, "tickets"));
+                System.out.println("解密后=====》"+decode);
+                return WrapMapper.ok(res);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }//return WrapMapper.error("openid");
         return WrapMapper.error(obj.getString("errmsg"));
     }
 
     @Override
     public int decNowInAct(Integer activityId) {
-        return activityInfoMapper.decNowInAct(activityId);
+        if (activityInfoMapper.getNowInActivity(activityId) >= 1){
+            return activityInfoMapper.decNowInAct(activityId);
+        }
+        return 0;
     }
+
+    @Override
+    public List<UserInfo> isFirstLogin(String openid) {
+        List<UserInfo> userByOpenid = userInfoMapper.findUserByToken(openid);
+        for (UserInfo user : userByOpenid) {
+            System.out.println(user);
+        }
+        return userByOpenid;
+    }
+
 }

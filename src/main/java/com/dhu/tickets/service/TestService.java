@@ -132,4 +132,6 @@ public interface TestService {
     Wrapper getOpenId(String code);
 
     int decNowInAct(Integer activityId);
+
+    List<UserInfo> isFirstLogin(String openid);
 }

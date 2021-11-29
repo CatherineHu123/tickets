@@ -1,4 +1,4 @@
-package com.dhu.tickets;
+package com.dhu.tickets.config;
 
 import com.dhu.tickets.interceptor.TokenInterceptor;
 import com.google.common.base.Predicates;
@@ -45,6 +45,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //添加拦截器
-        registry.addInterceptor(new TokenInterceptor()).addPathPatterns("/userLogin", "/adminLogin");
+        registry.addInterceptor(new TokenInterceptor())
+                .addPathPatterns("/user/isFirstLogin");
     }
 }

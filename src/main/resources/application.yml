@@ -8,6 +8,7 @@ spring:
     url: jdbc:mysql://118.178.235.119/asdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8&useSSL=false
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
+    use-ping-method: false
 
   redis:
     # 超时时间

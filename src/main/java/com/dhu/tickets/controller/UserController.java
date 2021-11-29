@@ -4,13 +4,14 @@ import com.dhu.tickets.common.R;
 import com.dhu.tickets.common.WrapMapper;
 import com.dhu.tickets.common.Wrapper;
 import com.dhu.tickets.entity.UserInfo;
-import com.dhu.tickets.mapper.UserInfoMapper;
 import com.dhu.tickets.service.TestService;
+import com.dhu.tickets.service.UserService;
+import com.dhu.tickets.utils.OpenidUtils;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -18,6 +19,9 @@ import java.util.List;
 public class UserController {
     @Autowired
     private TestService testService;
+
+    @Autowired
+    private UserService userService;
 
     /**用户*/
 //    @GetMapping("/userLogin")
@@ -64,18 +68,25 @@ public class UserController {
         return WrapMapper.ok(userInfos);
     }
 
-    @GetMapping("/userInfoById/{userId}")
+    @GetMapping("/userInfoById")
     @ApiOperation(notes = "通过id获取用户信息", value = "通过id获取用户信息")
-    public Wrapper selectUByPrimaryKey(@PathVariable Integer userId){
-        UserInfo userInfo = testService.selectUByPrimaryKey(userId);
-        return WrapMapper.ok(userInfo);
+    public Wrapper selectUByPrimaryKey(Integer userId, HttpServletRequest request) throws Exception {
+        List<UserInfo> userInfos = testService.findUserByOpenid(OpenidUtils.getOpenId(request));
+        if (userInfos == null||userInfos.get(0).getUserId() != userId){
+            return WrapMapper.error("opeind或id错误");
+        }
+        return WrapMapper.ok(userInfos.get(0));
     }
 
     @GetMapping("/userInfoByName")
     @ApiOperation(notes = "通过名字获取用户信息", value = "通过名字获取用户信息")
-    public Wrapper selectByUserName(String userName){
-        UserInfo userInfo = testService.selectByUserName(userName);
-        return WrapMapper.ok(userInfo);
+    public Wrapper selectByUserName(String userName, HttpServletRequest request) throws Exception {
+        List<UserInfo> userInfos = testService.findUserByOpenid(OpenidUtils.getOpenId(request));
+        System.out.println(userInfos.get(0).getUserName()+" "+userName);
+        if (userInfos == null||!userInfos.get(0).getUserName().equals(userName)){
+            return WrapMapper.error("opeind或name错误");
+        }
+        return WrapMapper.ok(userInfos.get(0));
     }
 
     @GetMapping("/userInfoByPhone")
@@ -86,22 +97,27 @@ public class UserController {
     }
 
     // 判断用户是否是第一次登陆
+
+    /**
+     * 已作废，拦截器拦截
+     * 如存在 openid，则redis中已经存入userid
+     * 若不存在，则跳转到userSign中，存入用户信息
+     */
     @GetMapping("/isFirstLogin")
-    @ApiOperation(value = "判断是否是第一次登陆")
-    public Wrapper isFirstLogin(String openid){
-        List<UserInfo> userByOpenid = testService.findUserByOpenid(openid);
-        for (UserInfo user : userByOpenid) {
-            System.out.println(user);
+    @ApiOperation(value = "判断是否是第一次登陆（作废）")
+    public Wrapper isFirstLogin(String openid) {
+        List<UserInfo> userByOpenid = testService.isFirstLogin(openid);
+        if (null != userByOpenid){
+            return WrapMapper.ok(userByOpenid);
         }
-        if (0 != userByOpenid.size()){
-            return WrapMapper.ok(userByOpenid.get(0));
-        }
-        return WrapMapper.ok("第一次登陆");
+        return WrapMapper.error("第一次登陆");
     }
 
     @PostMapping("/userSign")
     @ApiOperation(value = "录入用户信息")
-    public R userSign(@RequestBody UserInfo userInfo){
+    public R userSign(@RequestBody UserInfo userInfo, HttpServletRequest request) throws Exception {
+        String openId = OpenidUtils.getOpenId(request);
+        userInfo.setWxToken(openId);
         testService.insert(userInfo);
         return R.suc();
     }
