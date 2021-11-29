@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @Author: Catherine

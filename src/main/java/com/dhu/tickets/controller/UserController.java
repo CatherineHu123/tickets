@@ -68,6 +68,17 @@ public class UserController {
         return WrapMapper.ok(userInfos);
     }
 
+    @GetMapping("/getUser")
+    @ApiOperation(value = "获取当前用户信息")
+    public Wrapper getUserInfo(HttpServletRequest request) throws Exception {
+        List<UserInfo> userInfos = testService.findUserByOpenid(OpenidUtils.getOpenId(request));
+        if (userInfos == null){
+            return WrapMapper.error("opeind错误");
+        }
+        userInfos.get(0).setWxToken(null);
+        return WrapMapper.ok(userInfos.get(0));
+    }
+
     @GetMapping("/userInfoById")
     @ApiOperation(notes = "通过id获取用户信息", value = "通过id获取用户信息")
     public Wrapper selectUByPrimaryKey(Integer userId, HttpServletRequest request) throws Exception {
@@ -75,6 +86,7 @@ public class UserController {
         if (userInfos == null||userInfos.get(0).getUserId() != userId){
             return WrapMapper.error("opeind或id错误");
         }
+        userInfos.get(0).setWxToken(null);
         return WrapMapper.ok(userInfos.get(0));
     }
 
@@ -86,14 +98,19 @@ public class UserController {
         if (userInfos == null||!userInfos.get(0).getUserName().equals(userName)){
             return WrapMapper.error("opeind或name错误");
         }
+        userInfos.get(0).setWxToken(null);
         return WrapMapper.ok(userInfos.get(0));
     }
 
     @GetMapping("/userInfoByPhone")
     @ApiOperation(notes = "通过手机号获取用户信息", value = "通过手机号获取用户信息")
-    public Wrapper selectByUserPhone(String userPhone){
-        UserInfo userInfo = testService.selectByUserPhone(userPhone);
-        return WrapMapper.ok(userInfo);
+    public Wrapper selectByUserPhone(String userPhone, HttpServletRequest request) throws Exception {
+        List<UserInfo> userInfos = testService.findUserByOpenid(OpenidUtils.getOpenId(request));
+        if (userInfos == null||!userInfos.get(0).getUserPhone().equals(userPhone)){
+            return WrapMapper.error("opeind或phone错误");
+        }
+        userInfos.get(0).setWxToken(null);
+        return WrapMapper.ok(userInfos.get(0));
     }
 
     // 判断用户是否是第一次登陆
@@ -106,9 +123,10 @@ public class UserController {
     @GetMapping("/isFirstLogin")
     @ApiOperation(value = "判断是否是第一次登陆（作废）")
     public Wrapper isFirstLogin(String openid) {
+        System.out.println("firstLogin");
         List<UserInfo> userByOpenid = testService.isFirstLogin(openid);
-        if (null != userByOpenid){
-            return WrapMapper.ok(userByOpenid);
+        if (0 != userByOpenid.size()){
+            return WrapMapper.ok(userByOpenid.get(0));
         }
         return WrapMapper.error("第一次登陆");
     }

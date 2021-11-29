@@ -5,7 +5,7 @@
     <id column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
-    <result column="wx_token" jdbcType="VARCHAR" property="wxToken" />
+    <result column="openid" jdbcType="VARCHAR" property="wxToken" />
     <result column="if_delete" jdbcType="INTEGER" property="ifDelete" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, user_name, user_phone, wx_token, if_delete, create_date, update_date, user_password
+    user_id, user_name, user_phone, wx_token as openid, if_delete, create_date, update_date, user_password
   </sql>
   <select id="selectByExample" parameterType="com.dhu.tickets.entity.UserInfoExample" resultMap="BaseResultMap">
     select

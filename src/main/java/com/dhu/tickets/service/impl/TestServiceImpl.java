@@ -629,11 +629,12 @@ public class TestServiceImpl implements TestService {
                 byte[] encodeOpen = AESUtils.encrypt(openid, "tickets");
                 String res = AESUtils.parseByte2HexStr(encodeOpen);
                 System.out.println("加密后=====》"+res);
-                byte[] openidCode = AESUtils.parseHexStr2Byte(res);
-                String decode = new String(AESUtils.decrypt(openidCode, "tickets"));
-                System.out.println("解密后=====》"+decode);
+//                byte[] openidCode = AESUtils.parseHexStr2Byte(res);
+//                String decode = new String(AESUtils.decrypt(openidCode, "tickets"));
+//                System.out.println("解密后=====》"+decode);
                 return WrapMapper.ok(res);
             } catch (Exception e) {
+                System.out.println("exception"+e);
                 e.printStackTrace();
             }
         }//return WrapMapper.error("openid");
@@ -650,7 +651,9 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public List<UserInfo> isFirstLogin(String openid) {
+        System.out.println("firstLogin");
         List<UserInfo> userByOpenid = userInfoMapper.findUserByToken(openid);
+        System.out.println(userByOpenid.size());
         for (UserInfo user : userByOpenid) {
             System.out.println(user);
         }

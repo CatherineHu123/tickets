@@ -16,12 +16,17 @@ import java.util.Base64;
  * @Author: Catherine
  */
 public class AESUtils {
-    private static final String AES_ALGORITHM = "AES/ECB/PKCS5Padding";
+    private static final String AES_ALGORITHM = "SHA1PRNG";
 
     public static byte[] encrypt(String content, String password){
         try {
             KeyGenerator kgen = KeyGenerator.getInstance("AES");
-            kgen.init(128, new SecureRandom(password.getBytes()));
+
+//            kgen.init(128, new SecureRandom(password.getBytes()));
+            SecureRandom random = SecureRandom.getInstance(AES_ALGORITHM);
+            random.setSeed(password.getBytes());
+            kgen.init(128, random);
+
             SecretKey secretKey = kgen.generateKey();
             byte[] enCodeFormat = secretKey.getEncoded();
             SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
@@ -42,7 +47,12 @@ public class AESUtils {
     public static byte[] decrypt(byte[] content, String password){
         try {
             KeyGenerator kgen = KeyGenerator.getInstance("AES");
-            kgen.init(128, new SecureRandom(password.getBytes()));
+
+//            kgen.init(128, new SecureRandom(password.getBytes()));
+            SecureRandom random = SecureRandom.getInstance(AES_ALGORITHM);
+            random.setSeed(password.getBytes());
+            kgen.init(128, random);
+
             SecretKey secretKey = kgen.generateKey();
             byte[] enCodeFormat = secretKey.getEncoded();
             SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");

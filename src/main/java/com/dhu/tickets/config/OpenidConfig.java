@@ -23,6 +23,7 @@ public class OpenidConfig implements WebMvcConfigurer {
                 .addPathPatterns("/user/userInfoById",
                         "/user/userInfoByName",
                         "/user/userInfoByPhone",
-                        "/user//userSign");
+                        "/user/userSign",
+                        "/user/getUser");
     }
 }
